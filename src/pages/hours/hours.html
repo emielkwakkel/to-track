@@ -1,0 +1,53 @@
+<ion-header *ngIf="!recording">
+  <ion-navbar>
+    <ion-title>
+      Hours
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-header *ngIf="recording">
+  <ion-navbar color="secondary">
+    <ion-title>
+      {{ time }} - Rabobank
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item-sliding (ionSwipe)="delete(item)">
+      <ion-item *ngFor="let hour of hours">
+        <ion-avatar item-start>
+          <ion-icon name="create"></ion-icon>
+        </ion-avatar>
+        <h2>Today</h2>
+        <h3>08:00 - now</h3>
+        <p ion-button clear item-end>{{hour.client}} - {{hour.duration}}</p>
+      </ion-item>
+      <ion-item-options side="right">
+        <button ion-button color="primary">
+          <ion-icon name="create"></ion-icon>
+          Edit
+        </button>
+        <button ion-button expandable (click)="delete(item)" color="danger">
+          <ion-icon name="trash"></ion-icon>
+          Delete
+        </button>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+
+  <ion-footer>
+    <ion-toolbar>
+      <button ion-button block large icon-left (click)="startRecording()" *ngIf="!recording">
+        <ion-icon name="clock"></ion-icon>
+        Record
+      </button>
+      <button ion-button block large icon-left (click)="stopRecording()" *ngIf="recording" color="danger">
+        <ion-icon name="clock"></ion-icon>
+        Stop recording
+      </button>
+    </ion-toolbar>
+  </ion-footer>
+</ion-content>

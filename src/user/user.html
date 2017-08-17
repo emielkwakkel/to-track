@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>User</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+	<ion-card>
+		<ion-item>
+	    <ion-avatar item-start>
+	      <img [src]="user.photoURL" [alt]="user.displayName">
+	    </ion-avatar>
+	    <h2>{{ user.displayName }}</h2>
+	    <p>{{ user.email }}</p>
+	  </ion-item>
+		<ion-card-content>
+			<p>You have connected using {{ user.providerData[0].providerId }}.</p>
+			<button ion-button block icon-left (click)="logout()" color="danger">
+				<ion-icon name="log-out"></ion-icon>
+				Logout
+			</button>
+		</ion-card-content>
+	</ion-card>
+</ion-content>

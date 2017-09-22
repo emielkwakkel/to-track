@@ -14,6 +14,7 @@ export class UserService {
 
     set user(user: firebase.User) {
         this._user = user;
+        console.log('user in set user', user);
 				this.writeUserData(
 					user.uid,
 					user.displayName,

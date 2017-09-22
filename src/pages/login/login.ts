@@ -9,6 +9,7 @@ import { Observable } from 'rxjs/Observable';
 import * as firebase from 'firebase/app';
 
 import { AuthenticationService } from '../../user/authentication.service';
+import { UserService } from '../../user/user.service';
 
 @IonicPage({
     priority: 'high'
@@ -20,31 +21,44 @@ import { AuthenticationService } from '../../user/authentication.service';
 export class LoginPage {
     error: any;
     user: Observable<firebase.User>;
-    constructor(public navCtrl: NavController, public authenticationService: AuthenticationService, public toastCtrl: ToastController) {
+    constructor(
+      public navCtrl: NavController,
+      public authenticationService: AuthenticationService,
+      public userService: UserService,
+      public toastCtrl: ToastController) {
     }
 
     loginGoogle() {
+        console.log('login with Google');
         this.authenticationService.loginGoogle()
             .then(success => this.onLogin(success))
             .catch(error => this.onError(error));
     }
 
-    onLogin(success) {
-        console.log('login success', success);
 
-        // Remove the login page from the nav stack.
-        // Now the tabs page is the root of the application.
-        // this.navCtrl.remove(0);
-        this.navCtrl.setRoot('TabsPage');
-
-        // On success  navigate to the tabs page.
-        this.navCtrl.push('TabsPage');
-
+    onLogin(result) {
+        console.log('login success', result);
+        if (result.credential) {
+            // This gives you a Google Access Token. You can use it to access the Google API.
+            const token = result.credential.accessToken;
+            console.log('token', token);
+            // ...
+        }
+        console.log('user', result.user)
+        // The signed-in user info.
+        this.userService.user = result.user;
     }
 
     onError(error) {
         this.error = error;
         console.log('error', error);
+        // Handle Errors here.
+        // const errorCode = error.code;
+        // const errorMessage = error.message;
+        // // The email of the user's account used.
+        // const email = error.email;
+        // // The firebase.auth.AuthCredential type that was used.
+        // const credential = error.credential;
         this.presentToast(error.message, 3000);
     }
 

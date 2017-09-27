@@ -7,7 +7,7 @@ import { CompanyService } from '../company.service';
     priority: 'high'
 })
 @Component({
-    selector: 'page-company',
+    selector: 'page-company-list',
     templateUrl: './company-list.html'
 })
 export class CompanyListPage implements OnInit {

@@ -9,5 +9,5 @@ import { CompanyService } from "../company.service";
     entryComponents: [CompanyListPage],
     providers: [CompanyService]
 })
-export class CompanyPageModule {
+export class CompanyListPageModule {
 }

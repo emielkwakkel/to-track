@@ -4,7 +4,6 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
-import { UserService } from '../user/user.service';
 import { AuthenticationService } from '../user/authentication.service';
 
 @Component({
@@ -13,7 +12,6 @@ import { AuthenticationService } from '../user/authentication.service';
 export class MyApp {
     @ViewChild('myNav') nav : NavController;
     rootPage: any = 'LoginPage';
-    private isLoggedIn: Boolean;
     public user: firebase.User;
 
     constructor(
@@ -21,7 +19,6 @@ export class MyApp {
       public statusBar: StatusBar,
       public splashScreen: SplashScreen,
       private afAuth: AngularFireAuth,
-      private userService: UserService,
       private authenticationService: AuthenticationService) {
         platform
           .ready()

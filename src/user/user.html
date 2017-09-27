@@ -7,7 +7,7 @@
 <ion-content>
 	<ion-card>
 		<ion-item>
-	    <ion-avatar item-start>
+	    <ion-avatar item-start *ngIf="user.photoURL">
 	      <img [src]="user.photoURL" [alt]="user.displayName">
 	    </ion-avatar>
 	    <h2>{{ user.displayName }}</h2>

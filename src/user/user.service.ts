@@ -13,18 +13,24 @@ export class UserService {
     }
 
     set user(user: firebase.User) {
-        this._user = user;
-        console.log('user in set user', user);
-				this.writeUserData(
-					user.uid,
-					user.displayName,
-					user.email,
-					user.photoURL,
-					user.providerData[0].providerId,
-					user.phoneNumber
-				).then(() => {
-					console.log('written user data to firebase');
-				})
+        if (user) {
+          this._user = user;
+          console.log('Set user', user);
+  				this.writeUserData(
+  					user.uid,
+  					user.displayName,
+  					user.email,
+  					user.photoURL,
+  					user.providerData[0].providerId,
+  					user.phoneNumber
+  				).then(() => {
+  					console.log('Written user data');
+  				}).catch(error => {
+            console.log('Error writing user data');
+          })
+        } else {
+            console.log('Called setter without data');
+        }
     }
 
     writeUserData(uid : string, displayName: string, email : string, photoURL : string, provider: string, phoneNumber : string) {

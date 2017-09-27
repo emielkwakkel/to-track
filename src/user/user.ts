@@ -23,14 +23,6 @@ export class UserPage implements OnInit {
     }
 
     public logout() {
-        this.authenticationService
-            .logout()
-            .then(() => {
-                this.navCtrl
-                    .push('LoginPage')
-                    .then(() => {
-                        this.navCtrl.setRoot('LoginPage');
-                    });
-            });
+        this.authenticationService.logout();
     }
 }

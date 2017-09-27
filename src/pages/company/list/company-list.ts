@@ -23,7 +23,7 @@ export class CompanyListPage implements OnInit {
     }
 
     public addCompany() {
-        this.navCtrl.push('CompanyEditPage');
+        this.navCtrl.push('CompanyAddPage');
     }
 
     public editCompany(company) {

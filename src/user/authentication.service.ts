@@ -38,15 +38,7 @@ export class AuthenticationService {
     }
 
     private onError(error) {
-        this.error = error;
         console.log('error', error);
-        // Handle Errors here.
-        // const errorCode = error.code;
-        // const errorMessage = error.message;
-        // // The email of the user's account used.
-        // const email = error.email;
-        // // The firebase.auth.AuthCredential type that was used.
-        // const credential = error.credential;
         this.presentToast(error.message, 3000);
     }
 

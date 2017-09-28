@@ -1,0 +1,19 @@
+<ion-fab right top>
+  <button ion-fab (click)="addMarker()" *ngIf="!marker">
+    <ion-icon name="pin"></ion-icon>
+  </button>
+  <button ion-fab (click)="removeMarker()" *ngIf="marker" color="danger">
+    <ion-icon name="trash"></ion-icon>
+  </button>
+</ion-fab>
+<div #map id="map"></div>
+<ion-footer *ngIf="marker">
+  <ion-toolbar>
+    <ion-item>
+      <ion-range [(ngModel)]="radius" min="10" max="500" pin="true" (ionChange)="setCircleRadius(radius)">
+        <ion-icon range-left small name="remove-circle"></ion-icon>
+        <ion-icon range-right name="add-circle"></ion-icon>
+      </ion-range>
+    </ion-item>
+  </ion-toolbar>
+</ion-footer>

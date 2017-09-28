@@ -6,6 +6,7 @@ export class CompanyService {
         this._companies = [
             {
                 name: 'Rabobank',
+                locationEnabled: true,
                 location: {
                     long: '',
                     lat: '',
@@ -14,6 +15,7 @@ export class CompanyService {
             },
             {
                 name: 'Sogeti',
+                locationEnabled: true,
                 location: {
                     long: '',
                     lat: '',

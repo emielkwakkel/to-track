@@ -1,9 +1,10 @@
 export class Company {
     constructor(
-      public name: string,
-      public location: {
-          long: string,
-          lat: string,
-          radius: number
+      public name: String,
+      public locationEnabled: Boolean,
+      public location?: {
+          long: String,
+          lat: String,
+          radius: Number
       }) {}
 }

@@ -29,7 +29,7 @@
       </button>
         <button ion-button block large icon-left *ngIf="!(user | async)?.uid" (click)="loginGoogle()">
           <ion-icon name="google"></ion-icon>
-          Signup
+          Create account
         </button>
       <button ion-button block large icon-left *ngIf="(user | async)?.uid" (click)="logout()" color="danger">
         <ion-icon name="log-out"></ion-icon>

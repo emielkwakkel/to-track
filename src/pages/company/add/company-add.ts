@@ -12,6 +12,8 @@ export class CompanyAddPage {
   @ViewChild(Slides) slides: Slides;
   company: Company;
   companyBackup: Company;
+  slideIndex: Number;
+  slideIsEnd: Boolean;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public CompanyService: CompanyService) {
     this.company = navParams.get('company');
@@ -19,12 +21,30 @@ export class CompanyAddPage {
   }
 
   ngOnInit() {
-    this.slides.lockSwipeToNext(true);
-    console.log('slides', this.slides)
+    // this.slides.lockSwipeToNext(true);
+    this.slideIndex = 1;
+    this.company = {
+      name: '',
+      locationEnabled: false
+    }
   }
 
-  toLocation(location) {
-    this.navCtrl.push('LocationPage', { location })
+  slideChanged() {
+    this.checkSteps();
+  }
+
+  checkSteps() {
+    setTimeout(() => {
+      console.log('enabled', this.company.locationEnabled);
+      this.slideIndex = this.slides.getActiveIndex() + 1;
+      this.slideIsEnd = this.slides.isEnd();
+      console.log('slidend', this.slideIsEnd);
+
+    },100)
+  }
+
+  onNext() {
+    this.slides.slideNext(300);
   }
 
   addCompany(company) {

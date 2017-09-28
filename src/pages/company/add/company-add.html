@@ -1,31 +1,48 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Add company</ion-title>
+    <ion-title>Add company <ion-badge item-end>step {{ slideIndex }}</ion-badge></ion-title>
   </ion-navbar>
 </ion-header>
 <ion-content class="outer-content">
-  <ion-slides #slides pager>
+  <ion-slides #slides pager (ionSlideDidChange)="slideChanged()">
 
-    <ion-slide style="background:#fff;">
+    <ion-slide>
       <h2>Company name</h2>
       <ion-list>
         <ion-item>
           <!-- <ion-label color="primary" stacked>Company name</ion-label> -->
-          <ion-input placeholder="Company name"></ion-input>
+          <ion-input placeholder="Company name" [(ngModel)]="company.name"></ion-input>
         </ion-item>
       </ion-list>
 
     </ion-slide>
 
-    <ion-slide style="">
-
+    <ion-slide>
       <h2>Automatically track time</h2>
       <p>Track time by selecting your office location. If you are at the office the time will automatically start running!</p>
+      <ion-list>
+        <ion-item>
+          <ion-label>Enable Location Services</ion-label>
+          <ion-toggle checked="false" [(ngModel)]="company.locationEnabled" (ngModelChange)="checkSteps(company.locationEnabled)"></ion-toggle>
+        </ion-item>
+      </ion-list>
     </ion-slide>
 
-    <ion-slide style="background-color: red">
-      <h2>Slide 3</h2>
+    <ion-slide *ngIf="company.locationEnabled">
+      <shared-location></shared-location>
     </ion-slide>
 
   </ion-slides>
+  <ion-footer>
+    <ion-toolbar>
+      <button ion-button block large icon-right (click)="onNext()" *ngIf="!slideIsEnd">
+        Next
+        <ion-icon name="arrow-forward"></ion-icon>
+      </button>
+      <button ion-button block large icon-left (click)="addCompany(company)" *ngIf="slideIsEnd">
+        <ion-icon name="add-circle"></ion-icon>
+        Add company
+      </button>
+    </ion-toolbar>
+  </ion-footer>
 </ion-content>

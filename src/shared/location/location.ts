@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
 
@@ -8,7 +8,7 @@ declare const google;
     selector: 'shared-location',
     templateUrl: 'location.html'
 })
-export class SharedLocation {
+export class SharedLocation implements AfterViewInit {
     @ViewChild('map') mapElement: ElementRef;
     circle: any;
     map: any;
@@ -21,7 +21,7 @@ export class SharedLocation {
         this.location = navParams.get('location');
     }
 
-    ionViewDidLoad() {
+    ngAfterViewInit() {
         this.geolocation
             .getCurrentPosition()
             .then((position) => this.loadMap(position))

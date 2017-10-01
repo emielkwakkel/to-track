@@ -11,7 +11,7 @@
 <ion-content>
 
   <ion-card>
-    <img src="assets/city-map.jpg" style="max-width:250px;margin: 0 auto;"/>
+    <img src="assets/city-map.jpg" style="max-width:250px;margin: 0 auto;">
     <ion-card-content>
       <ion-card-title>
         Hours Tracker
@@ -20,17 +20,12 @@
       <p>You are able to signup via email, or connect a Google account.</p>
     </ion-card-content>
   </ion-card>
--
   <ion-footer>
     <ion-toolbar>
       <button ion-button block large icon-left *ngIf="!(user | async)?.uid" (click)="loginGoogle()">
         <ion-icon name="google"></ion-icon>
         Login via Google
       </button>
-        <button ion-button block large icon-left *ngIf="!(user | async)?.uid" (click)="loginGoogle()">
-          <ion-icon name="google"></ion-icon>
-          Create account
-        </button>
       <button ion-button block large icon-left *ngIf="(user | async)?.uid" (click)="logout()" color="danger">
         <ion-icon name="log-out"></ion-icon>
         Logout

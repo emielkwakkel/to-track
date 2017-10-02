@@ -43,7 +43,7 @@ export class CompanyService {
     writeCompany(company : Company) {
         console.log('add company', company);
         return this._database()
-          .ref(`company${this._user.uid}/${company.name}`)
+          .ref(`company/${this._user.uid}/${company.name}`)
           .set(company);
     }
 }

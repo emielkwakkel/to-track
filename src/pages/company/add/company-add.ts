@@ -36,10 +36,8 @@ export class CompanyAddPage {
 
   checkSteps() {
     setTimeout(() => {
-      console.log('enabled', this.company.locationEnabled);
       this.slideIndex = this.slides.getActiveIndex() + 1;
       this.slideIsEnd = this.slides.isEnd();
-      console.log('slidend', this.slideIsEnd);
     },100)
   }
 

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
-import { LocationPage } from './location';
 import { IonicPageModule } from 'ionic-angular';
+import { LocationPage } from './location';
 import { SharedModule } from '../../shared/shared.module';
 
 @NgModule({

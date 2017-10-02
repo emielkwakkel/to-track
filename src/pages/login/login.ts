@@ -7,7 +7,7 @@ import { IonicPage, NavController } from "ionic-angular";
 import { Observable } from 'rxjs/Observable';
 import * as firebase from 'firebase/app';
 
-import { AuthenticationService } from '../../user/authentication.service';
+import { AuthenticationService } from '../../shared/user/authentication.service';
 
 @IonicPage({
     priority: 'high'

@@ -4,7 +4,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
-import { AuthenticationService } from '../user/authentication.service';
+import { AuthenticationService } from '../shared/user/authentication.service';
 
 @Component({
     templateUrl: 'app.html'

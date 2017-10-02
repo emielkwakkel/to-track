@@ -1,8 +1,9 @@
-import { AuthenticationService } from "./authentication.service";
-import { Component, OnInit } from "@angular/core";
-import { IonicPage, NavController } from "ionic-angular";
-import { UserService } from './user.service';
+import { Component, OnInit } from '@angular/core';
+import { IonicPage, NavController } from 'ionic-angular';
 import * as firebase from 'firebase/app';
+
+import { AuthenticationService } from '../shared/user/authentication.service';
+import { UserService } from '../shared/user/user.service';
 
 @IonicPage()
 @Component({

@@ -30,9 +30,11 @@ export class AuthenticationService {
     }
 
     private onLogin(result) {
+        console.log('onLogin!!', result);
         // If defined the user just logged in.
         // If not defined user was already logged in, no need to set the user again.
         if (result.user) {
+          console.log('writing user!!');
           this.userService.user = result.user;
         }
     }

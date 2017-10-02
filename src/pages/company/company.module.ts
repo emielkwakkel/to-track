@@ -3,15 +3,17 @@ import { FormsModule } from '@angular/forms';
 import { IonicPageModule } from 'ionic-angular';
 import { CompanyListPage } from './list/company-list';
 import { CompanyService } from './company.service';
+import { SharedModule } from '../../shared/shared.module';
 
 @NgModule({
-    declarations: [CompanyListPage],
+    declarations: [ CompanyListPage ],
     imports: [
       IonicPageModule.forChild(CompanyListPage),
-      FormsModule
+      FormsModule,
+      SharedModule
     ],
-    entryComponents: [CompanyListPage],
-    providers: [CompanyService]
+    entryComponents: [ CompanyListPage ],
+    providers: [ CompanyService ]
 })
 export class CompanyPageModule {
 }

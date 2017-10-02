@@ -12,8 +12,8 @@ import { firebaseConfig } from '../firebase.config';
 // Providers
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { AuthenticationService } from '../user/authentication.service';
-import { UserService } from "../user/user.service";
+import { AuthenticationService } from '../shared/user/authentication.service';
+import { UserService } from "../shared/user/user.service";
 
 @NgModule({
     declarations: [

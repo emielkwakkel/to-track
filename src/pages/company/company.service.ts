@@ -1,13 +1,16 @@
-import { Company } from './company.model';
-import { UserService } from '../../user/user.service';
+import { Injectable } from '@angular/core';
 import * as firebase from 'firebase/app';
 
+import { Company } from './company.model';
+import { UserService } from '../../shared/user/user.service';
+
+@Injectable()
 export class CompanyService {
     private _companies: Company[];
     private _user: firebase.User;
     private _database = firebase.database;
 
-    constructor(public userService: UserService) {
+    constructor(private userService: UserService) {
         this._companies = [
             {
                 name: 'Rabobank',

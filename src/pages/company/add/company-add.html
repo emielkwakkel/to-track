@@ -33,16 +33,16 @@
     </ion-slide>
 
   </ion-slides>
-  <ion-footer>
-    <ion-toolbar>
-      <button ion-button block large icon-right (click)="onNext()" *ngIf="!slideIsEnd">
-        Next
-        <ion-icon name="arrow-forward"></ion-icon>
-      </button>
-      <button ion-button block large icon-left (click)="addCompany(company)" *ngIf="slideIsEnd">
-        <ion-icon name="add-circle"></ion-icon>
-        Add company
-      </button>
-    </ion-toolbar>
-  </ion-footer>
 </ion-content>
+<ion-footer>
+  <ion-toolbar>
+    <button ion-button block large icon-right (click)="onNext()" *ngIf="!slideIsEnd">
+      Next
+      <ion-icon name="arrow-forward"></ion-icon>
+    </button>
+    <button ion-button block large icon-left (click)="addCompany(company)" *ngIf="slideIsEnd">
+      <ion-icon name="add-circle"></ion-icon>
+      Add company
+    </button>
+  </ion-toolbar>
+</ion-footer>

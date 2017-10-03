@@ -1,5 +1,5 @@
 import { Component, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, LoadingController } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
 
 declare const google;
@@ -15,13 +15,22 @@ export class SharedLocation implements AfterViewInit {
     marker: any;
     radius: number;
     location: any;
+    loading: any;
 
-    constructor(public navCtrl: NavController, public navParams: NavParams, public geolocation: Geolocation) {
+    constructor(
+      public navCtrl: NavController,
+      public navParams: NavParams,
+      public geolocation: Geolocation,
+      public loadingCtrl: LoadingController) {
         this.radius = 150;
         this.location = navParams.get('location');
+        this.loading = loadingCtrl.create({
+          content: 'Loading maps...'
+        });
     }
 
     ngAfterViewInit() {
+        this.loading.present();
         this.geolocation
             .getCurrentPosition()
             .then((position) => this.loadMap(position))
@@ -40,6 +49,7 @@ export class SharedLocation implements AfterViewInit {
         };
 
         this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
+        this.loading.dismiss();
     }
 
     private onError(error) {

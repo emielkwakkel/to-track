@@ -33,22 +33,18 @@ export class AuthenticationService {
     }
 
     public logout() {
-        console.log('logout');
         return this.afAuth.auth.signOut();
     }
 
     private onLogin(result) {
-        console.log('onLogin!!', result);
         // If defined the user just logged in.
         // If not defined user was already logged in, no need to set the user again.
         if (result.user) {
-          console.log('writing user!!');
           this.userService.user = result.user;
         }
     }
 
     private onError(error) {
-        console.log('error', error);
         this.loading.dismiss();
         this.presentToast(error.message, 3000);
     }

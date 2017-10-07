@@ -11,27 +11,27 @@ export class UserService {
     }
 
     get user(): firebase.User {
-        console.log('get user', this._user)
-        if(!this._user) {
-          console.log('User not locally stored');
-          this.storage.get('user')
-            .then(user => {
-              console.log('result', user);
-              if (user) this.user = user;
-              if (!user) this.user = firebase.auth().currentUser;
-            })
-            .catch(error => {
-              console.log('error getting user', error)
-            });
-        } else {
-          console.log('user not logged in');
-        }
-        return this._user;
+      // Check if user data is present in the service
+      if(!this._user) {
+        // If not in the service get it from storage
+        this.storage.get('user')
+          .then(user => {
+            // Set user if data was present in local storage
+            if (user) this.user = user;
+
+            // If no user data is loaded get it from firebase
+            if (!user) this.user = firebase.auth().currentUser;
+          })
+          .catch(error => {
+            console.log('error getting user', error)
+          });
+      } else {
+        console.log('user not logged in');
+      }
+      return this._user;
     }
 
     set user(user: firebase.User) {
-        console.log('Set user', user);
-
         if (user) {
           // Store between page loads
           this._user = user;

@@ -4,8 +4,8 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content>
-	<ion-card>
+<ion-content class="cards-bg">
+  <ion-card>
 		<ion-item>
 	    <ion-avatar item-start *ngIf="user.photoURL">
 	      <img [src]="user.photoURL" [alt]="user.displayName">
@@ -14,11 +14,28 @@
 	    <p>{{ user.email }}</p>
 	  </ion-item>
 		<ion-card-content>
-			<p>You have connected using {{ user.providerData[0].providerId }}.</p>
-			<button ion-button block icon-left (click)="logout()" color="danger">
-				<ion-icon name="log-out"></ion-icon>
+			<p>You have connected using {{ user.providerData[0].providerId }}.<br></p>
+		</ion-card-content>
+    <ion-list>
+      <button ion-item block (click)="logout()">
+				<ion-icon name="log-out" item-start></ion-icon>
 				Logout
 			</button>
+    </ion-list>
+	</ion-card>
+  <ion-card>
+		<ion-item>
+	    <h2>Local data</h2>
+      <p>Driver: {{ driver }}</p>
+	  </ion-item>
+		<ion-card-content>
+			<p>Data is both stored online and locally on your device. To logout and clear local data click below.</p>
 		</ion-card-content>
+    <ion-list>
+      <button ion-item block (click)="logout()">
+				<ion-icon name="trash" item-start></ion-icon>
+				Clear local data and logout
+			</button>
+    </ion-list>
 	</ion-card>
 </ion-content>

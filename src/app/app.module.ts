@@ -1,6 +1,7 @@
 import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
+import { IonicStorageModule } from '@ionic/storage';
 import { MyApp } from './app.component';
 
 // Firebase
@@ -24,6 +25,7 @@ import { UserService } from "../shared/user/user.service";
         IonicModule.forRoot(MyApp, {
             preloadModules: true
         }),
+        IonicStorageModule.forRoot(),
         AngularFireModule.initializeApp(firebaseConfig),
         AngularFireDatabaseModule,
         AngularFireAuthModule

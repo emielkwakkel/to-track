@@ -1,19 +1,27 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
-import { ToastController } from 'ionic-angular';
+import { ToastController, LoadingController } from 'ionic-angular';
 import { UserService } from './user.service';
 
 @Injectable()
 export class AuthenticationService {
     error: any;
+    loading: any;
+
     constructor(
         public afAuth: AngularFireAuth,
         public toastCtrl: ToastController,
-        public userService: UserService) { }
+        public userService: UserService,
+        public loadingCtrl: LoadingController) {
+          this.loading = loadingCtrl.create({
+            content: 'Logging in...'
+          });
+        }
 
     public loginGoogle() {
         const provider = new firebase.auth.GoogleAuthProvider();
+        this.loading.present();
         return this.afAuth.auth.signInWithRedirect(provider);
     }
 
@@ -41,6 +49,7 @@ export class AuthenticationService {
 
     private onError(error) {
         console.log('error', error);
+        this.loading.dismiss();
         this.presentToast(error.message, 3000);
     }
 

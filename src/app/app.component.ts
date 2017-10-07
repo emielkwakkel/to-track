@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { Platform, NavController } from 'ionic-angular';
+import { Platform, NavController, LoadingController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { AngularFireAuth } from 'angularfire2/auth';
@@ -13,13 +13,18 @@ export class MyApp {
     @ViewChild('myNav') nav : NavController;
     rootPage: any = 'LoginPage';
     public user: firebase.User;
+    public loading: any;
 
     constructor(
       platform: Platform,
       public statusBar: StatusBar,
       public splashScreen: SplashScreen,
       private afAuth: AngularFireAuth,
-      private authenticationService: AuthenticationService) {
+      private authenticationService: AuthenticationService,
+      public loadingCtrl: LoadingController) {
+        this.loading = loadingCtrl.create({
+          content: 'Logging in...'
+        });
         platform
           .ready()
           .then(() => this.onPlatformReady());
@@ -27,6 +32,7 @@ export class MyApp {
 
     onPlatformReady() {
       console.log('onPlatformReady');
+      this.loading.present();
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native  things you might need.
       this.statusBar.styleDefault();
@@ -39,6 +45,7 @@ export class MyApp {
 
     onUserChange(user: firebase.User) {
       console.log('onUserChange');
+      this.loading.dismiss();
 
 
       if (user) {

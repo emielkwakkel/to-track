@@ -6,16 +6,17 @@
 <ion-content class="outer-content">
   <ion-list>
     <ion-list-header>Company</ion-list-header>
-  	<!-- <ion-item>
-      <ion-label color="primary" stacked>Stacked Label</ion-label>
-      <ion-input type="input" placeholder="Company name" [(ngModel)]="company.name"></ion-input>
-    </ion-item> -->
     <ion-item-group>
-      <button ion-item>
+      <ion-item>
         <ion-icon name="home" item-start color="primary"></ion-icon>
-        <ion-label>Company</ion-label>
-        <ion-note item-end>{{ company.name }}</ion-note>
-      </button>
+        <ion-label fixed>Company</ion-label>
+        <ion-input type="text" [(ngModel)]="company.name"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-icon name="navigate" item-start color="primary"></ion-icon>
+        <ion-label>Location enabled</ion-label>
+        <ion-toggle checked="false"></ion-toggle>
+      </ion-item>
       <button ion-item (click)="toLocation(company.location)">
         <ion-icon name="navigate" item-start color="primary"></ion-icon>
         <ion-label>Location</ion-label>

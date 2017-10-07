@@ -5,16 +5,13 @@
 </ion-header>
 <ion-content class="outer-content">
   <ion-slides #slides pager (ionSlideDidChange)="slideChanged()">
-
     <ion-slide>
       <h2>Company name</h2>
       <ion-list>
         <ion-item>
-          <!-- <ion-label color="primary" stacked>Company name</ion-label> -->
           <ion-input placeholder="Company name" [(ngModel)]="company.name"></ion-input>
         </ion-item>
       </ion-list>
-
     </ion-slide>
 
     <ion-slide>
@@ -31,7 +28,6 @@
     <ion-slide *ngIf="company.locationEnabled" class="full-height">
       <shared-location></shared-location>
     </ion-slide>
-
   </ion-slides>
 </ion-content>
 <ion-footer>

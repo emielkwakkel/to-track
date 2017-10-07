@@ -38,7 +38,7 @@ export class CompanyAddPage {
     setTimeout(() => {
       this.slideIndex = this.slides.getActiveIndex() + 1;
       this.slideIsEnd = this.slides.isEnd();
-    },100)
+    }, 100)
   }
 
   onNext() {

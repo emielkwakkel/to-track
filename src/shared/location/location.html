@@ -1,4 +1,4 @@
-<ion-fab right top>
+<ion-fab right middle>
   <button ion-fab (click)="addMarker()" *ngIf="!marker">
     <ion-icon name="pin"></ion-icon>
   </button>
@@ -6,6 +6,11 @@
     <ion-icon name="trash"></ion-icon>
   </button>
 </ion-fab>
+<ion-header>
+  <ion-item>
+    <ion-input id="search" type="text" name="search" placeholder="Search ..."></ion-input>
+  </ion-item>
+</ion-header>
 <div #map id="map"></div>
 <ion-footer *ngIf="marker">
   <ion-toolbar>

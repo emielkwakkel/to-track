@@ -1,9 +1,5 @@
 import { Component } from "@angular/core";
 import { IonicPage, NavController } from "ionic-angular";
-// import { AngularFireAuth } from 'angularfire2/auth';
-// import { Router } from '@angular/router';
-// import { moveIn } from '../router.animations';
-
 import { Observable } from 'rxjs/Observable';
 import * as firebase from 'firebase/app';
 
@@ -24,7 +20,6 @@ export class LoginPage {
     }
 
     loginGoogle() {
-        console.log('login with Google');
         this.authenticationService.loginGoogle();
     }
 

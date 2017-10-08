@@ -15,7 +15,7 @@
       <ion-item>
         <ion-icon name="navigate" item-start color="primary"></ion-icon>
         <ion-label>Location enabled</ion-label>
-        <ion-toggle checked="false"></ion-toggle>
+        <ion-toggle [(ngModel)]="company.locationEnabled"></ion-toggle>
       </ion-item>
       <button ion-item (click)="toLocation(company.location)">
         <ion-icon name="navigate" item-start color="primary"></ion-icon>

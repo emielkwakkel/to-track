@@ -168,7 +168,7 @@ export class SharedLocation implements AfterViewInit {
         });
     }
 
-    arePointsNear(checkPoint, centerPoint, meters) {
+    public arePointsNear(checkPoint, centerPoint, meters) {
         const ky = 40000 / 360;
         const kx = Math.cos(Math.PI * centerPoint.lat / 180.0) * ky;
         const dx = Math.abs(centerPoint.lng - checkPoint.lng) * kx;

@@ -57,24 +57,30 @@ export class SharedLocation implements AfterViewInit {
     }
 
 
-    public addMarker() {
-        this.marker = new google.maps.Marker({
-            map: this.map,
-            draggable: true,
-            animation: google.maps.Animation.DROP,
-            position: this.map.getCenter()
-        });
+    public addMarker(latLng = this.map.getCenter()) {
+        if (this.marker) {
+          this.marker.setPosition(latLng);
+          this.circle.setCenter(latLng);
+        } else {
+          this.marker = new google.maps.Marker({
+              map: this.map,
+              draggable: true,
+              animation: google.maps.Animation.DROP,
+              position: latLng
+          });
 
-        this.circle = new google.maps.Circle({
-            strokeColor: '#FF0000',
-            strokeOpacity: 0.8,
-            strokeWeight: 2,
-            fillColor: '#FF0000',
-            fillOpacity: 0.35,
-            map: this.map,
-            center: this.marker.getPosition(),
-            radius: this.radius
-        });
+          this.circle = new google.maps.Circle({
+              strokeColor: '#FF0000',
+              strokeOpacity: 0.8,
+              strokeWeight: 2,
+              fillColor: '#FF0000',
+              fillOpacity: 0.35,
+              map: this.map,
+              center: this.marker.getPosition(),
+              radius: this.radius
+          });
+        }
+
 
         google.maps.event.addListener(this.marker, 'dragend', () => {
             console.log(this.circle);

@@ -38,7 +38,9 @@ export class UserService {
 
           // Store on device
           this.storage.remove('user');
-          this.storage.set('user', user);
+          this.storage.set('user', user)
+            .then(() => console.log('succesfully written data'))
+            .catch(error => console.log('error writing data', error));
 
           // Write to storage
           this.writeUserData(user)

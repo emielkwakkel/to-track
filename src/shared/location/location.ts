@@ -17,6 +17,7 @@ export class SharedLocation implements AfterViewInit {
     radius: number;
     location: any;
     loading: any;
+    autocomplete: any;
 
     constructor(
       public navCtrl: NavController,
@@ -35,7 +36,7 @@ export class SharedLocation implements AfterViewInit {
         this.loading.present();
         this.geolocation
             .getCurrentPosition()
-            .then((position) => this.loadMap(position))
+            .then(position => this.loadMap(position))
             .catch(error => this.onError(error));
     }
 
@@ -59,8 +60,19 @@ export class SharedLocation implements AfterViewInit {
         };
 
         this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
+        let input = document.querySelector('ion-input#search input.text-input');
+        this.autocomplete = new google.maps.places.Autocomplete(input);
+
+        google.maps.event.addListener(this.autocomplete, 'place_changed', () => this.placeChangedEvent());
         this.loading.dismiss();
     }
+
+    private placeChangedEvent() {
+       // retrieve the place object for your use
+       let place = this.autocomplete.getPlace();
+       this.map.setCenter(place.geometry.location);
+       this.addMarker(place.geometry.location);
+     }
 
     private onError(error) {
         this.presentToast(`Error loading maps: ${error}`);

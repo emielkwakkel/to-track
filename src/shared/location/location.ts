@@ -62,7 +62,6 @@ export class SharedLocation implements AfterViewInit {
         this.autocomplete = new google.maps.places.Autocomplete(input);
 
         google.maps.event.addListener(this.autocomplete, 'place_changed', () => this.placeChangedEvent());
-        google.maps.event.addListener(this.map, 'click', event => this.mapClickedEvent(event));
 
         this.loading.dismiss();
     }
@@ -72,10 +71,6 @@ export class SharedLocation implements AfterViewInit {
        let place = this.autocomplete.getPlace();
        this.map.setCenter(place.geometry.location);
        this.addMarker(place.geometry.location);
-     }
-
-     private mapClickedEvent(event) {
-        this.addMarker(event.latLng);
      }
 
     private onError(error) {

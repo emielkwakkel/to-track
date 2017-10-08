@@ -1,5 +1,5 @@
-import { NavController, NavParams, LoadingController } from 'ionic-angular';
 import { Component, Input, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
+import { ToastController, LoadingController } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
 
 declare const google;
@@ -22,6 +22,7 @@ export class SharedLocation implements AfterViewInit {
       public navCtrl: NavController,
       public navParams: NavParams,
       public geolocation: Geolocation,
+      public toastCtrl: ToastController,
       public loadingCtrl: LoadingController) {
         this.radius = 150;
         this.location = navParams.get('location');
@@ -36,6 +37,14 @@ export class SharedLocation implements AfterViewInit {
             .getCurrentPosition()
             .then((position) => this.loadMap(position))
             .catch(error => this.onError(error));
+    }
+
+    private presentToast(message: string, duration: number = 2000) {
+        let toast = this.toastCtrl.create({
+            message,
+            duration
+        });
+        toast.present();
     }
 
     private loadMap(position) {
@@ -54,7 +63,7 @@ export class SharedLocation implements AfterViewInit {
     }
 
     private onError(error) {
-        console.log(error);
+        this.presentToast(`Error loading maps: ${error}`);
     }
 
 

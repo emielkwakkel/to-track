@@ -102,8 +102,9 @@ export class SharedLocation implements AfterViewInit {
         }
 
 
+        this.geocodePosition(this.marker.getPosition());
+
         google.maps.event.addListener(this.marker, 'dragend', () => {
-            console.log(this.circle);
             this.geocodePosition(this.marker.getPosition());
             this.circle.setCenter(this.marker.getPosition())
         });
@@ -129,24 +130,29 @@ export class SharedLocation implements AfterViewInit {
         this.circle = null;
     }
 
-    public geocodePosition(pos) {
+    public geocodePosition(latLng) {
         const geocoder = new google.maps.Geocoder();
-        geocoder.geocode
-            ({
-                latLng: pos
-            },
-            function(results, status) {
-                if (status == google.maps.GeocoderStatus.OK) {
-                    console.log(results[0].formatted_address);
-                }
-                else {
-                    console.log('Cannot determine address at this location', status);
-                }
-            }
-            );
+        geocoder.geocode(
+          { latLng },
+          (results, status) => this.handleGeocodeResults(results, status)
+        );
     }
 
-    addInfoWindow(marker, content) {
+    private handleGeocodeResults(results, status) {
+      // Center the map to the new location
+      this.map.panTo(results[0].geometry.location);
+
+      // Check status of Geocoding
+      if (status == google.maps.GeocoderStatus.OK) {
+        this.presentToast(`Address: ${results[0].formatted_address}`);
+        return results[0].formatted_address;
+      }
+      else {
+        this.presentToast(`Cannot determine address at this location, reason: ${status}`);
+      }
+    }
+
+    private addInfoWindow(marker, content) {
         let infoWindow = new google.maps.InfoWindow({
             content: content
         });

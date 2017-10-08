@@ -1,5 +1,5 @@
 import { Component, Input, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
-import { ToastController, LoadingController } from 'ionic-angular';
+import { ToastController, LoadingController, NavParams } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
 
 declare const google;

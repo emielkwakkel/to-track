@@ -68,5 +68,16 @@ export class UserService {
                 provider,
                 phoneNumber
             });
+
+    public parseFirebaseUser(user: firebase.User) {
+      return {
+        displayName: user.displayName,
+        email: user.email,
+        emailVerified: user.emailVerified,
+        phoneNumber: user.phoneNumber,
+        photoURL: user.photoURL,
+        uid: user.uid,
+        providerId: user.providerData[0].providerId
+      }
     }
 }

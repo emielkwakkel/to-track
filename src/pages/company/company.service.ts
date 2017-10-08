@@ -3,11 +3,12 @@ import * as firebase from 'firebase/app';
 
 import { Company } from './company.model';
 import { UserService } from '../../shared/user/user.service';
+import { User } from '../../shared/user/user.model';
 
 @Injectable()
 export class CompanyService {
     private _companies: Company[];
-    private _user: firebase.User;
+    private _user: User;
     private _database = firebase.database;
 
     constructor(private userService: UserService) {

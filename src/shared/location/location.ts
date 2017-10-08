@@ -15,12 +15,10 @@ export class SharedLocation implements AfterViewInit {
     map: any;
     marker: any;
     radius: number;
-    location: any;
     loading: any;
     autocomplete: any;
 
     constructor(
-      public navCtrl: NavController,
       public navParams: NavParams,
       public geolocation: Geolocation,
       public toastCtrl: ToastController,

@@ -31,7 +31,6 @@ export class MyApp {
     }
 
     onPlatformReady() {
-      console.log('onPlatformReady');
       this.loading.present();
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native  things you might need.
@@ -44,13 +43,9 @@ export class MyApp {
     }
 
     onUserChange(user: firebase.User) {
-      console.log('onUserChange');
       this.loading.dismiss();
 
-
       if (user) {
-        console.log("Logged in");
-
         // Remove the login page from the nav stack.
         // Now the tabs page is the root of the application.
         this.nav.setRoot('TabsPage');
@@ -59,7 +54,6 @@ export class MyApp {
         this.nav.push('TabsPage');
 
       } else {
-        console.log("Logged out");
         this.nav.setRoot('LoginPage');
 
         // On success  navigate to the login page.

@@ -205,16 +205,6 @@ export class SharedLocation implements AfterViewInit {
       return this.presentToast(`Cannot determine address at this location, reason: ${status}`);
     }
 
-    private addInfoWindow(marker, content) {
-        let infoWindow = new google.maps.InfoWindow({
-            content: content
-        });
-
-        google.maps.event.addListener(marker, 'click', () => {
-            infoWindow.open(this.map, marker);
-        });
-    }
-
     public arePointsNear(checkPoint, centerPoint, meters) {
         const ky = 40000 / 360;
         const kx = Math.cos(Math.PI * centerPoint.lat / 180.0) * ky;

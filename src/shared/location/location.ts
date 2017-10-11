@@ -1,4 +1,4 @@
-import { Component, Input, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, Input, ElementRef, ViewChild, AfterViewInit, EventEmitter, Output } from '@angular/core';
 import { ToastController, LoadingController, NavParams } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
 
@@ -11,6 +11,7 @@ declare const google;
 export class SharedLocation implements AfterViewInit {
     @ViewChild('map') mapElement: ElementRef;
     @Input() location: any;
+    @Output() change = new EventEmitter();
     circle: any;
     map: any;
     marker: any;
@@ -146,6 +147,7 @@ export class SharedLocation implements AfterViewInit {
       // Check status of Geocoding
       if (status == google.maps.GeocoderStatus.OK) {
         this.presentToast(`Address: ${results[0].formatted_address}`);
+        this.change.emit('result is ' + results[0].formatted_address);
         return results[0].formatted_address;
       }
       else {

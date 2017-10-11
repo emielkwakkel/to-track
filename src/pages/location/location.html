@@ -6,5 +6,5 @@
   </ion-navbar>
 </ion-header>
 <ion-content>
-  <shared-location [location]="location"></shared-location>
+  <shared-location [location]="location" (change)="locationChanged($event)"></shared-location>
 </ion-content>

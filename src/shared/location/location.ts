@@ -18,6 +18,7 @@ export class SharedLocation implements AfterViewInit {
     radius: number;
     loading: any;
     autocomplete: any;
+    searchInput: string;
 
     constructor(
       public navParams: NavParams,
@@ -147,6 +148,7 @@ export class SharedLocation implements AfterViewInit {
       // Check status of Geocoding
       if (status == google.maps.GeocoderStatus.OK) {
         this.presentToast(`Address: ${results[0].formatted_address}`);
+        this.searchInput = results[0].formatted_address;
         this.change.emit('result is ' + results[0].formatted_address);
         return results[0].formatted_address;
       }

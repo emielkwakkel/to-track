@@ -38,18 +38,25 @@ export class SharedLocation implements AfterViewInit {
         this.loading.present();
 
         // Get current position and load the map
-        this.geolocation
-            .getCurrentPosition()
-            .then(position => this.loadMap(position))
-            .catch(error => this.onError(error));
+        if (this.location) {
+          this.loadMap(
+            this.location.lat,
+            this.location.long
+          )
+        } else {
+          this.geolocation
+              .getCurrentPosition()
+              .then(position => this.loadMap(position.coords.latitude, position.coords.longitude))
+              .catch(error => this.onError(error));
+        }
     }
 
     /*
     * Load map creates a new Google map and autocomplete functionality.
     */
-    private loadMap(position) {
+    private loadMap(lat, long) {
         // Convert Ionic position to Google Maps latitude / longitude
-        const latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+        const latLng = new google.maps.LatLng(lat, long);
 
         // Set generic Google Maps options
         const mapOptions = {
@@ -123,7 +130,7 @@ export class SharedLocation implements AfterViewInit {
               fillOpacity: 0.35,
               map: this.map,
               center: this.marker.getPosition(),
-              radius: this.radius
+              radius: this.location.radius
           });
         }
 
@@ -141,6 +148,9 @@ export class SharedLocation implements AfterViewInit {
     }
 
     public setCircleRadius(radius) {
+        console.log('setting radius to ', radius);
+        this.location.radius = radius;
+        this.change.emit(this.location);
         if (this.circle) {
             this.circle.setRadius(radius);
         }
@@ -167,17 +177,28 @@ export class SharedLocation implements AfterViewInit {
     private handleGeocodeResults(results, status) {
       // Center the map to the new location
       this.map.panTo(results[0].geometry.location);
+      console.log(results[0]);
 
       // Check status of Geocoding
       if (status == google.maps.GeocoderStatus.OK) {
+        // Set location
+        this.location = {
+          address: results[0].formatted_address,
+          lat: results[0].geometry.location.lat,
+          long: results[0].geometry.location.long,
+          radius: this.circle.getRadius()
+        }
+
+        // Emit location to the parent component.
+        this.change.emit(this.location);
+
+        // Display geocoded address in toast and input field.
         this.presentToast(`Address: ${results[0].formatted_address}`);
         this.searchInput = results[0].formatted_address;
-        this.change.emit('result is ' + results[0].formatted_address);
-        return results[0].formatted_address;
+        return this.location;
       }
-      else {
-        this.presentToast(`Cannot determine address at this location, reason: ${status}`);
-      }
+
+      return this.presentToast(`Cannot determine address at this location, reason: ${status}`);
     }
 
     private addInfoWindow(marker, content) {

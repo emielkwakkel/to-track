@@ -1,5 +1,6 @@
-import { Component } from "@angular/core";
-import { IonicPage, NavParams } from "ionic-angular";
+import { Component } from '@angular/core';
+import { IonicPage, NavParams } from 'ionic-angular';
+import { Location } from '../../shared/location/location.model';
 
 @IonicPage()
 @Component({
@@ -7,7 +8,7 @@ import { IonicPage, NavParams } from "ionic-angular";
     templateUrl: 'location.html'
 })
 export class LocationPage {
-    location: any;
+    location: Location;
     constructor(private navParams: NavParams) {
       this.location = this.navParams.get('location');
     }

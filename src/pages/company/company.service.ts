@@ -17,8 +17,9 @@ export class CompanyService {
                 name: 'Rabobank',
                 locationEnabled: true,
                 location: {
-                    long: '',
-                    lat: '',
+                    address: 'Croeselaan 28',
+                    lat: '52.086375',
+                    long: '5.109289',
                     radius: 100
                 }
             },
@@ -26,8 +27,9 @@ export class CompanyService {
                 name: 'Sogeti',
                 locationEnabled: true,
                 location: {
-                    long: '',
-                    lat: '',
+                    address: 'Lange dreef 17',
+                    lat: '51.984566',
+                    long: '5.105328',
                     radius: 100
                 }
             }

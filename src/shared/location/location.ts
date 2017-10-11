@@ -1,6 +1,7 @@
 import { Component, Input, ElementRef, ViewChild, AfterViewInit, EventEmitter, Output } from '@angular/core';
 import { ToastController, LoadingController, NavParams } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
+import { Location } from './location.model';
 
 declare const google;
 
@@ -10,7 +11,7 @@ declare const google;
 })
 export class SharedLocation implements AfterViewInit {
     @ViewChild('map') mapElement: ElementRef;
-    @Input() location: any;
+    @Input() location: Location;
     @Output() change = new EventEmitter();
     circle: any;
     map: any;

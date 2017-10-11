@@ -1,10 +1,8 @@
+import { Location } from '../../shared/location/location.model';
+
 export class Company {
     constructor(
-      public name: String,
-      public locationEnabled: Boolean,
-      public location?: {
-          long: String,
-          lat: String,
-          radius: Number
-      }) {}
+      public name: string,
+      public locationEnabled: boolean,
+      public location?: Location) {}
 }

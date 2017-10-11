@@ -28,6 +28,7 @@ export class SharedLocation implements AfterViewInit {
       public loadingCtrl: LoadingController) {
         this.radius = 150;
         this.location = navParams.get('location');
+        console.log('input location', this.location);
         this.loading = loadingCtrl.create({
           content: 'Loading maps...'
         });
@@ -109,12 +110,16 @@ export class SharedLocation implements AfterViewInit {
         this.presentToast(`Error loading maps: ${error}`);
     }
 
-
+    /**
+    * If no specific location is specified set the marker to the center of the map.
+    */
     public setMarker(latLng = this.map.getCenter()) {
+        // If marker is already added overwrite the position.
         if (this.marker) {
           this.marker.setPosition(latLng);
           this.circle.setCenter(latLng);
         } else {
+          // Add new marker
           this.marker = new google.maps.Marker({
               map: this.map,
               draggable: true,
@@ -122,6 +127,7 @@ export class SharedLocation implements AfterViewInit {
               position: latLng
           });
 
+          // Draw radius around the marker
           this.circle = new google.maps.Circle({
               strokeColor: '#FF0000',
               strokeOpacity: 0.8,
@@ -134,21 +140,20 @@ export class SharedLocation implements AfterViewInit {
           });
         }
 
-
+        // Get the location data from the position.
         this.geocodePosition(this.marker.getPosition());
 
+        // Add listener to handle dragging markers.
         google.maps.event.addListener(this.marker, 'dragend', () => {
+            // If marker is dragged geocode position again
             this.geocodePosition(this.marker.getPosition());
+
+            // Draw circle around the new marker location.
             this.circle.setCenter(this.marker.getPosition())
         });
-
-        const content = '<h4>Information!</h4>';
-
-        this.addInfoWindow(this.marker, content);
     }
 
     public setCircleRadius(radius) {
-        console.log('setting radius to ', radius);
         this.location.radius = radius;
         this.change.emit(this.location);
         if (this.circle) {
@@ -177,7 +182,6 @@ export class SharedLocation implements AfterViewInit {
     private handleGeocodeResults(results, status) {
       // Center the map to the new location
       this.map.panTo(results[0].geometry.location);
-      console.log(results[0]);
 
       // Check status of Geocoding
       if (status == google.maps.GeocoderStatus.OK) {

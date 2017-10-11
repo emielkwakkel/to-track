@@ -16,8 +16,10 @@
 
 <ion-content>
   <ion-list>
-    <ion-item-sliding (ionSwipe)="delete(item)">
-      <ion-item *ngFor="let hour of hours">
+    <ion-item-sliding
+      (ionSwipe)="deleteHour(item)"
+      *ngFor="let hour of hours">
+      <ion-item>
         <ion-avatar item-start>
           <ion-icon name="create"></ion-icon>
         </ion-avatar>
@@ -26,11 +28,11 @@
         <p ion-button clear item-end>{{hour.client}} - {{hour.duration}}</p>
       </ion-item>
       <ion-item-options side="right">
-        <button ion-button color="primary">
+        <button ion-button (click)="editHour(company)" color="primary">
           <ion-icon name="create"></ion-icon>
           Edit
         </button>
-        <button ion-button expandable (click)="delete(item)" color="danger">
+        <button ion-button expandable (click)="deleteHour(company)" color="danger">
           <ion-icon name="trash"></ion-icon>
           Delete
         </button>

@@ -33,25 +33,25 @@ export class SharedLocation implements AfterViewInit {
     }
 
     ngAfterViewInit() {
+        // Show loading spinner
         this.loading.present();
+
+        // Get current position and load the map
         this.geolocation
             .getCurrentPosition()
             .then(position => this.loadMap(position))
             .catch(error => this.onError(error));
     }
 
-    private presentToast(message: string, duration: number = 2000) {
-        let toast = this.toastCtrl.create({
-            message,
-            duration
-        });
-        toast.present();
-    }
-
+    /*
+    * Load map creates a new Google map and autocomplete functionality.
+    */
     private loadMap(position) {
-        let latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+        // Convert Ionic position to Google Maps latitude / longitude
+        const latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 
-        let mapOptions = {
+        // Set generic Google Maps options
+        const mapOptions = {
             center: latLng,
             zoom: 15,
             mapTypeId: google.maps.MapTypeId.ROADMAP,
@@ -59,20 +59,42 @@ export class SharedLocation implements AfterViewInit {
             zoomControl: true
         };
 
+        // Create new Google Map
         this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
-        let input = document.querySelector('ion-input#search input.text-input');
-        this.autocomplete = new google.maps.places.Autocomplete(input);
 
-        google.maps.event.addListener(this.autocomplete, 'place_changed', () => this.placeChangedEvent());
+        // Add autocomplete functionality to the search input
+        this.initAutocomplete();
 
+        // Loading of map is finished, dismiss loading spinner.
         this.loading.dismiss();
+    }
+
+    private initAutocomplete() {
+      // Get input element
+      let input = document.querySelector('ion-input#search input.text-input');
+
+      // Use Google maps places library to add autocomplete
+      this.autocomplete = new google.maps.places.Autocomplete(input);
+
+      // Bind results of autocomplete to the created Google Map
+      this.autocomplete.bindTo('bounds', this.map);
+
+      // Add event listener, which triggers after place is changed.
+      google.maps.event.addListener(this.autocomplete, 'place_changed', () => this.placeChangedEvent());
     }
 
     private placeChangedEvent() {
        // retrieve the place object for your use
        let place = this.autocomplete.getPlace();
-       this.map.setCenter(place.geometry.location);
-       this.addMarker(place.geometry.location);
+       if (place) {
+         // Center the map on the place
+         this.map.setCenter(place.geometry.location);
+
+         // Add a marker
+         this.setMarker(place.geometry.location);
+       } else {
+         this.presentToast(`Select a location.`);
+       }
      }
 
     private onError(error) {
@@ -80,7 +102,7 @@ export class SharedLocation implements AfterViewInit {
     }
 
 
-    public addMarker(latLng = this.map.getCenter()) {
+    public setMarker(latLng = this.map.getCenter()) {
         if (this.marker) {
           this.marker.setPosition(latLng);
           this.circle.setCenter(latLng);
@@ -173,5 +195,11 @@ export class SharedLocation implements AfterViewInit {
         const dx = Math.abs(centerPoint.lng - checkPoint.lng) * kx;
         const dy = Math.abs(centerPoint.lat - checkPoint.lat) * ky;
         return Math.sqrt(dx * dx + dy * dy) <= (meters / 1000);
+    }
+
+    private presentToast(message: string, duration: number = 2000) {
+        this.toastCtrl
+          .create({ message, duration })
+          .present();
     }
 }

@@ -71,6 +71,9 @@ export class SharedLocation implements AfterViewInit {
         // Create new Google Map
         this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
 
+        // Add marker to the supplied position
+        this.setMarker(latLng)
+
         // Add autocomplete functionality to the search input
         this.initAutocomplete();
 

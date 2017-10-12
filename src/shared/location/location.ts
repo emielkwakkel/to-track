@@ -60,13 +60,7 @@ export class SharedLocation implements AfterViewInit {
         const latLng = new google.maps.LatLng(lat, long);
 
         // Set generic Google Maps options
-        const mapOptions = {
-            center: latLng,
-            zoom: 15,
-            mapTypeId: google.maps.MapTypeId.ROADMAP,
-            disableDefaultUI: true,
-            zoomControl: true
-        };
+        const mapOptions = this.getMapOptions(latLng);
 
         // Create new Google Map
         this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
@@ -79,6 +73,16 @@ export class SharedLocation implements AfterViewInit {
 
         // Loading of map is finished, dismiss loading spinner.
         this.loading.dismiss();
+    }
+
+    private getMapOptions(latLng: object) {
+      return {
+          center: latLng,
+          zoom: 15,
+          mapTypeId: google.maps.MapTypeId.ROADMAP,
+          disableDefaultUI: true,
+          zoomControl: true
+      }
     }
 
     private initAutocomplete() {

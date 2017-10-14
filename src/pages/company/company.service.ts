@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
+import { AngularFireDatabase } from 'angularfire2/database';
 import * as firebase from 'firebase/app';
 import { Observable } from 'rxjs/Observable';
 
@@ -33,9 +33,9 @@ export class CompanyService {
           .set(company);
     }
 
-    deleteCompany(company) {
+    deleteCompany(company: Company) {
       return this._database
-        .object(`company/${this.uid}/${company.$key}`)
+        .object(`company/${this.uid}/${company.name}`)
         .remove();
     }
 }

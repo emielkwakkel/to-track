@@ -17,11 +17,16 @@
         <ion-label>Location enabled</ion-label>
         <ion-toggle [(ngModel)]="company.locationEnabled"></ion-toggle>
       </ion-item>
-      <button ion-item (click)="toLocation(company.location)">
+      <button
+        ion-item
+        (click)="toLocation(company.location)"
+        *ngIf="company.locationEnabled">
         <ion-icon name="navigate" item-start color="primary"></ion-icon>
         <ion-label>Location</ion-label>
-        <ion-note item-end>{{ company.name }}</ion-note>
+        <ion-note item-end *ngIf="company.location">{{ company.location.address }}</ion-note>
+        <ion-note item-end *ngIf="!company.location">Set location</ion-note>
       </button>
     </ion-item-group>
   </ion-list>
+  <pre>{{company | json}}</pre>
 </ion-content>

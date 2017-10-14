@@ -7,7 +7,6 @@ import { Company } from './company.model';
 
 @Injectable()
 export class CompanyService {
-    private _companies: any[];
     private uid: string;
 
     constructor(private _database: AngularFireDatabase) {
@@ -22,15 +21,9 @@ export class CompanyService {
     }
 
     addCompany(company: Company) {
-      // Write to firebase
-      return this.writeCompany(company);
-    }
-
-    writeCompany(company : Company) {
-        console.log('add company', company);
-        return this._database
-          .object(`company/${this.uid}/${company.name}`)
-          .set(company);
+      return this._database
+        .object(`company/${this.uid}/${company.name}`)
+        .set(company);
     }
 
     deleteCompany(company: Company) {

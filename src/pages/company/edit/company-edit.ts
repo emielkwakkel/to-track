@@ -26,6 +26,7 @@ export class CompanyEditPage {
   }
 
   deleteCompany(company) {
-    console.log('deleting', company);
+    this.CompanyService.deleteCompany(company);
+    this.navCtrl.push('CompanyListPage');
   }
 }

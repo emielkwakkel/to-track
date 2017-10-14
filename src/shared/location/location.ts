@@ -1,5 +1,5 @@
 import { Component, Input, ElementRef, ViewChild, AfterViewInit, EventEmitter, Output } from '@angular/core';
-import { ToastController, LoadingController, NavParams } from 'ionic-angular';
+import { ToastController, LoadingController } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
 import { Location } from './location.model';
 
@@ -16,19 +16,14 @@ export class SharedLocation implements AfterViewInit {
     circle: any;
     map: any;
     marker: any;
-    radius: number;
     loading: any;
     autocomplete: any;
     searchInput: string;
 
     constructor(
-      public navParams: NavParams,
       public geolocation: Geolocation,
       public toastCtrl: ToastController,
       public loadingCtrl: LoadingController) {
-        this.radius = 150;
-        this.location = navParams.get('location');
-        console.log('input location', this.location);
         this.loading = loadingCtrl.create({
           content: 'Loading maps...'
         });

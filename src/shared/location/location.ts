@@ -75,16 +75,6 @@ export class SharedLocation implements AfterViewInit {
         this.loading.dismiss();
     }
 
-    private getMapOptions(latLng: object) {
-      return {
-          center: latLng,
-          zoom: 15,
-          mapTypeId: google.maps.MapTypeId.ROADMAP,
-          disableDefaultUI: true,
-          zoomControl: true
-      }
-    }
-
     private initAutocomplete() {
       // Get input element
       let input = document.querySelector('ion-input#search input.text-input');
@@ -127,24 +117,14 @@ export class SharedLocation implements AfterViewInit {
           this.circle.setCenter(latLng);
         } else {
           // Add new marker
-          this.marker = new google.maps.Marker({
-              map: this.map,
-              draggable: true,
-              animation: google.maps.Animation.DROP,
-              position: latLng
-          });
+          this.marker = new google.maps.Marker(
+            this.getMarkerOptions(this.map, latLng)
+          );
 
           // Draw radius around the marker
-          this.circle = new google.maps.Circle({
-              strokeColor: '#FF0000',
-              strokeOpacity: 0.8,
-              strokeWeight: 2,
-              fillColor: '#FF0000',
-              fillOpacity: 0.35,
-              map: this.map,
-              center: this.marker.getPosition(),
-              radius: this.location.radius
-          });
+          this.circle = new google.maps.Circle(
+            this.getCircleOptions(this.map, this.marker.getPosition(), this.location.radius)
+          );
         }
 
         // Get the location data from the position.
@@ -206,10 +186,43 @@ export class SharedLocation implements AfterViewInit {
         // Display geocoded address in toast and input field.
         this.presentToast(`Address: ${results[0].formatted_address}`);
         this.searchInput = results[0].formatted_address;
+
         return this.location;
       }
 
       return this.presentToast(`Cannot determine address at this location, reason: ${status}`);
+    }
+
+    private getMarkerOptions(map, position) {
+      return {
+          map,
+          position,
+          draggable: true,
+          animation: google.maps.Animation.DROP
+      }
+    }
+
+    private getCircleOptions(map, center, radius) {
+      return {
+          map,
+          center,
+          radius,
+          strokeColor: '#FF0000',
+          strokeOpacity: 0.8,
+          strokeWeight: 2,
+          fillColor: '#FF0000',
+          fillOpacity: 0.35
+      }
+    }
+
+    private getMapOptions(center: object) {
+      return {
+          center,
+          zoom: 15,
+          mapTypeId: google.maps.MapTypeId.ROADMAP,
+          disableDefaultUI: true,
+          zoomControl: true
+      }
     }
 
     public arePointsNear(checkPoint, centerPoint, meters) {

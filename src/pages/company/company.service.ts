@@ -31,4 +31,10 @@ export class CompanyService {
           .object(`company/${this.uid}/${company.name}`)
           .set(company);
     }
+
+    deleteCompany(company) {
+      return this._database
+        .object(`company/${this.uid}/${company.$key}`)
+        .remove();
+    }
 }

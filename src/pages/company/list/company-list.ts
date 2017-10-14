@@ -39,7 +39,7 @@ export class CompanyListPage implements OnInit, OnDestroy {
     }
 
     public deleteCompany(company) {
-        console.log('deleting', company);
+        this.CompanyService.deleteCompany(company);
     }
 
     ionViewWillLeave() {

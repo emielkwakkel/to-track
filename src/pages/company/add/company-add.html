@@ -7,6 +7,7 @@
   <ion-slides #slides pager (ionSlideDidChange)="slideChanged()">
     <ion-slide>
       <h2>Company name</h2>
+      <p padding>Hours will be tracked per company.</p>
       <ion-list>
         <ion-item>
           <ion-input placeholder="Company name" [(ngModel)]="company.name"></ion-input>
@@ -16,7 +17,7 @@
 
     <ion-slide>
       <h2>Automatically track time</h2>
-      <p>Track time by selecting your office location. If you are at the office the time will automatically start running!</p>
+      <p padding>Track time by selecting your office location. If you are at the office the time will automatically start running!</p>
       <ion-list>
         <ion-item>
           <ion-label>Enable Location Services</ion-label>

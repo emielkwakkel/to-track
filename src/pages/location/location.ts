@@ -12,4 +12,12 @@ export class LocationPage {
     constructor(private navParams: NavParams) {
       this.location = this.navParams.get('location');
     }
+
+    locationChanged(event: Location) {
+      this.location = event;
+    }
+
+    ionViewWillLeave() {
+      console.log('leaving with', this.location);
+    }
 }

@@ -24,9 +24,10 @@ export class CompanyListPage implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-      this.subscription = this.CompanyService.companies.subscribe(companies => {
-        this.companies = companies;
-      })
+      this.subscription = this.CompanyService.companies
+        .subscribe(companies => {
+          this.companies = companies;
+        })
     }
 
     public addCompany() {

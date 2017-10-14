@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
+import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import * as firebase from 'firebase/app';
+import { Observable } from 'rxjs/Observable';
 
 import { Company } from './company.model';
 
@@ -13,10 +14,10 @@ export class CompanyService {
       this.uid = firebase.auth().currentUser.uid;
     }
 
-    get companies(): FirebaseListObservable<Company[]>{
+    get companies(): Observable<Company[]>{
       return this._database
-        .list(`company/${this.uid}`);
-        // .valueChanges();
+        .list<Company[]>(`company/${this.uid}`)
+        .valueChanges();
 
     }
 

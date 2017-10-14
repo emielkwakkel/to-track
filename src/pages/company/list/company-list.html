@@ -9,7 +9,7 @@
       <ion-icon name="add"></ion-icon>
     </button>
   </ion-fab>
-  <ion-list>
+  <ion-list #list>
     <ion-item-sliding
       *ngFor="let company of companies"
       (ionSwipe)="deleteCompany(company)">

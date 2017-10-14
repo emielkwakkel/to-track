@@ -15,7 +15,7 @@
 <ion-footer *ngIf="marker">
   <ion-toolbar>
     <ion-item>
-      <ion-range [(ngModel)]="radius" min="10" max="500" pin="true" (ionChange)="setCircleRadius(radius)">
+      <ion-range [(ngModel)]="location.radius" min="10" max="500" pin="true" (ionChange)="setCircleRadius(location.radius)">
         <ion-icon range-left small name="remove-circle"></ion-icon>
         <ion-icon range-right name="add-circle"></ion-icon>
       </ion-range>

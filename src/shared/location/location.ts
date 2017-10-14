@@ -197,7 +197,7 @@ export class SharedLocation implements AfterViewInit {
       }
     }
 
-    private getCircleOptions(map, center, radius) {
+    private getCircleOptions(map, center, radius = this.location.radius) {
       return {
           map,
           center,

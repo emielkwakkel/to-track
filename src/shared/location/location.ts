@@ -34,7 +34,7 @@ export class SharedLocation implements AfterViewInit {
         this.loading.present();
 
         // Get current position and load the map
-        if (this.location) {
+        if (this.location && this.location.lat && this.location.long) {
           this.loadMap(
             this.location.lat,
             this.location.long
@@ -170,8 +170,8 @@ export class SharedLocation implements AfterViewInit {
         // Set location
         this.location = {
           address: results[0].formatted_address,
-          lat: results[0].geometry.location.lat,
-          long: results[0].geometry.location.long,
+          lat: results[0].geometry.location.lat(),
+          long: results[0].geometry.location.lng(),
           radius: this.circle.getRadius()
         }
 

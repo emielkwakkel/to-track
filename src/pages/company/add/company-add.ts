@@ -2,6 +2,7 @@ import { Component, ViewChild } from "@angular/core";
 import { IonicPage, NavController, NavParams, Slides } from "ionic-angular";
 import { Company } from '../company.model';
 import { CompanyService } from '../company.service';
+import { Location } from '../../../shared/location/location.model';
 
 @IonicPage()
 @Component({
@@ -11,6 +12,7 @@ import { CompanyService } from '../company.service';
 export class CompanyAddPage {
   @ViewChild(Slides) slides: Slides;
   company: Company;
+  location: Location;
   slideIndex: Number;
   slideIsEnd: Boolean;
 
@@ -26,12 +28,22 @@ export class CompanyAddPage {
     this.slideIndex = 1;
     this.company = {
       name: '',
-      locationEnabled: false
+      locationEnabled: false,
+      location: {
+        address: null,
+        lat: null,
+        long: null,
+        radius: 100
+      }
     }
   }
 
   slideChanged() {
     this.checkSteps();
+  }
+
+  locationChanged(location: Location) {
+    this.company.location = location;
   }
 
   checkSteps() {

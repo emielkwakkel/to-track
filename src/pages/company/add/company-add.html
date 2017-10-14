@@ -26,7 +26,7 @@
     </ion-slide>
 
     <ion-slide *ngIf="company.locationEnabled" class="full-height">
-      <shared-location></shared-location>
+      <shared-location [location]="company.location" (change)="locationChanged($event)"></shared-location>
     </ion-slide>
   </ion-slides>
 </ion-content>

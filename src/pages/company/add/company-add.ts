@@ -46,7 +46,7 @@ export class CompanyAddPage {
   }
 
   addCompany(company: Company) {
-    this.companyService.writeCompany(company)
+    this.companyService.addCompany(company)
       .then(() => this.navCtrl.push('CompanyListPage'))
       .catch(error => console.log('error writing company data', error));
   }

@@ -1,52 +1,34 @@
 import { Injectable } from '@angular/core';
+import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 import * as firebase from 'firebase/app';
 
 import { Company } from './company.model';
-import { UserService } from '../../shared/user/user.service';
-import { User } from '../../shared/user/user.model';
 
 @Injectable()
 export class CompanyService {
-    private _companies: Company[];
-    private _user: User;
-    private _database = firebase.database;
+    private _companies: any[];
+    private uid: string;
 
-    constructor(private userService: UserService) {
-        this._companies = [
-            {
-                name: 'Rabobank',
-                locationEnabled: true,
-                location: {
-                    address: 'Croeselaan 28',
-                    lat: '52.086375',
-                    long: '5.109289',
-                    radius: 100
-                }
-            },
-            {
-                name: 'Sogeti',
-                locationEnabled: true,
-                location: {
-                    address: 'Lange dreef 17',
-                    lat: '51.984566',
-                    long: '5.105328',
-                    radius: 100
-                }
-            }
-        ]
-;
-        this._user = this.userService.user;
-        console.log('user', this._user)
+    constructor(private _database: AngularFireDatabase) {
+      this.uid = firebase.auth().currentUser.uid;
     }
 
-    get companies(): Company[] {
-        return this._companies;
+    get companies(): FirebaseListObservable<Company[]>{
+      return this._database
+        .list(`company/${this.uid}`);
+        // .valueChanges();
+
+    }
+
+    addCompany(company: Company) {
+      // Write to firebase
+      return this.writeCompany(company);
     }
 
     writeCompany(company : Company) {
         console.log('add company', company);
-        return this._database()
-          .ref(`company/${this._user.uid}/${company.name}`)
+        return this._database
+          .object(`company/${this.uid}/${company.name}`)
           .set(company);
     }
 }

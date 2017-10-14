@@ -1,7 +1,9 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, OnDestroy } from "@angular/core";
 import { IonicPage, NavController } from "ionic-angular";
-import { Company } from '../company.model';
+import { Subscription } from 'rxjs/Subscription';
+
 import { CompanyService } from '../company.service';
+import { Company } from '../company.model';
 
 @IonicPage({
     priority: 'high'
@@ -10,8 +12,9 @@ import { CompanyService } from '../company.service';
     selector: 'page-company-list',
     templateUrl: './company-list.html'
 })
-export class CompanyListPage implements OnInit {
+export class CompanyListPage implements OnInit, OnDestroy {
     companies: Company[];
+    subscription: Subscription;
 
     constructor(
         public navCtrl: NavController,
@@ -19,7 +22,9 @@ export class CompanyListPage implements OnInit {
     }
 
     ngOnInit() {
-      this.companies = this.CompanyService.companies;
+      this.subscription = this.CompanyService.companies.subscribe(companies => {
+        this.companies = companies;
+      })
     }
 
     public addCompany() {
@@ -33,5 +38,9 @@ export class CompanyListPage implements OnInit {
 
     public deleteCompany(company) {
         console.log('deleting', company);
+    }
+
+    ngOnDestroy() {
+      this.subscription.unsubscribe();
     }
 }

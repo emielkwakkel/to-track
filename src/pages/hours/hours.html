@@ -42,7 +42,11 @@
 
   <ion-footer>
     <ion-toolbar>
-      <button ion-button block large icon-left (click)="selectCompany()" *ngIf="!recording">
+      <button ion-button disabled block large icon-left *ngIf="!recording && !companies">
+        <ion-icon name="clock"></ion-icon>
+        Add company to record
+      </button>
+      <button ion-button block large icon-left (click)="selectCompany()" *ngIf="!recording && companies">
         <ion-icon name="clock"></ion-icon>
         Record
       </button>

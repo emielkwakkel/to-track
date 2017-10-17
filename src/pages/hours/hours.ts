@@ -1,8 +1,12 @@
-import { Component } from "@angular/core";
+import { Component, OnDestroy } from "@angular/core";
 import * as moment from 'moment';
 import { IonicPage, NavController, ActionSheetController } from "ionic-angular";
+import { Subscription } from 'rxjs/Subscription';
+
 import { HoursService } from "./hours.service";
 import { Hours } from "./hours.model";
+import { CompanyService } from '../company/company.service';
+import { Company } from '../company/company.model';
 
 @IonicPage({
     priority: 'high'
@@ -11,45 +15,67 @@ import { Hours } from "./hours.model";
     selector: 'page-hours',
     templateUrl: 'hours.html'
 })
-export class HoursPage {
+export class HoursPage implements OnDestroy {
     recording: boolean = false;
     hour: Hours;
     hours: Hours[];
     time: any;
     timer: any;
+    companies: Company[];
+    subscription: Subscription;
 
     constructor(
       public navCtrl: NavController,
       private HoursService: HoursService,
+      private CompanyService: CompanyService,
       public actionSheetCtrl: ActionSheetController) {
         this.hours = this.HoursService.hours;
+        this.subscription = this.CompanyService.companies
+          .subscribe(companies => {
+            this.companies = companies;
+          })
     }
 
     selectCompany() {
+      if (!this.companies) {
+          console.log('No companies yet');
+          return;
+      }
+
+      if (this.companies.length === 1) {
+          console.log('single company');
+          this.startRecording(this.companies[0].name);
+          return;
+      }
+
+      if (this.companies.length > 1) {
+          console.log('multiple')
+          this.showActionSheet(this.companies);
+          return;
+      }
+    }
+
+    private showActionSheet(companies) {
+      const buttons = [{
+          text: 'Cancel',
+          role: 'cancel',
+          handler: () => {}
+        }];
+
+      companies.forEach(company => {
+        buttons.push({
+          text: company.name,
+          role: '',
+          handler: () => {
+            this.startRecording(company.name)
+          }
+        });
+      });
+
       this.actionSheetCtrl
         .create({
           title: 'Select company',
-          buttons: [
-            {
-              text: 'Rabobank',
-              handler: () => {
-                console.log('Rabo clicked');
-                this.startRecording('Rabobank');
-              }
-            },{
-              text: 'Sogeti',
-              handler: () => {
-                console.log('Sogeti clicked');
-                this.startRecording('Sogeti')
-              }
-            },{
-              text: 'Cancel',
-              role: 'cancel',
-              handler: () => {
-                console.log('Cancel clicked');
-              }
-            }
-          ]
+          buttons
         })
         .present();
     }
@@ -86,5 +112,9 @@ export class HoursPage {
         this.hour.end = moment();
         this.hour.duration = this.HoursService.getDuration(this.hour.start, this.hour.end);
         console.log(this.hour)
+    }
+
+    ngOnDestroy() {
+      this.subscription.unsubscribe();
     }
 }

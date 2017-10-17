@@ -13,7 +13,8 @@ import { SharedModule } from '../../shared/shared.module';
       SharedModule
     ],
     entryComponents: [ CompanyListPage ],
-    providers: [ CompanyService ]
+    providers: [ CompanyService ],
+    exports: [ CompanyService ]
 })
 export class CompanyPageModule {
 }

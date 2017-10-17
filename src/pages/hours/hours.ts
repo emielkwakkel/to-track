@@ -2,7 +2,7 @@ import { Component } from "@angular/core";
 import * as moment from 'moment';
 import { IonicPage, NavController } from "ionic-angular";
 import { HoursService } from "./hours.service";
-import { IHours } from "./hours.interface";
+import { Hours } from "./hours.model";
 
 @IonicPage({
     priority: 'high'
@@ -13,8 +13,8 @@ import { IHours } from "./hours.interface";
 })
 export class HoursPage {
     recording: boolean = false;
-    hour: IHours;
-    hours: IHours[];
+    hour: Hours;
+    hours: Hours[];
     time: any;
     timer: any;
 

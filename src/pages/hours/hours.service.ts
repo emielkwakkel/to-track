@@ -1,8 +1,8 @@
 import * as moment from 'moment';
-import { IHours } from './hours.interface';
+import { Hours } from './hours.model';
 
 export class HoursService {
-    private _hours: IHours[];
+    private _hours: Hours[];
     constructor() {
         this._hours = [
             {
@@ -32,7 +32,7 @@ export class HoursService {
         ]
     }
 
-    get hours(): IHours[] {
+    get hours(): Hours[] {
         return this._hours;
     }
 

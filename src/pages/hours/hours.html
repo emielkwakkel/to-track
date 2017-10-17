@@ -9,7 +9,7 @@
 <ion-header *ngIf="recording">
   <ion-navbar color="secondary">
     <ion-title>
-      {{ time }} - Rabobank
+      {{ time }} - {{ hour.client }}
     </ion-title>
   </ion-navbar>
 </ion-header>
@@ -42,7 +42,7 @@
 
   <ion-footer>
     <ion-toolbar>
-      <button ion-button block large icon-left (click)="startRecording()" *ngIf="!recording">
+      <button ion-button block large icon-left (click)="selectCompany()" *ngIf="!recording">
         <ion-icon name="clock"></ion-icon>
         Record
       </button>

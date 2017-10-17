@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
 import * as moment from 'moment';
-import { IonicPage, NavController } from "ionic-angular";
+import { IonicPage, NavController, ActionSheetController } from "ionic-angular";
 import { HoursService } from "./hours.service";
 import { Hours } from "./hours.model";
 
@@ -18,19 +18,51 @@ export class HoursPage {
     time: any;
     timer: any;
 
-    constructor(public navCtrl: NavController, private HoursService: HoursService) {
+    constructor(
+      public navCtrl: NavController,
+      private HoursService: HoursService,
+      public actionSheetCtrl: ActionSheetController) {
         this.hours = this.HoursService.hours;
+    }
+
+    selectCompany() {
+      this.actionSheetCtrl
+        .create({
+          title: 'Select company',
+          buttons: [
+            {
+              text: 'Rabobank',
+              handler: () => {
+                console.log('Rabo clicked');
+                this.startRecording('Rabobank');
+              }
+            },{
+              text: 'Sogeti',
+              handler: () => {
+                console.log('Sogeti clicked');
+                this.startRecording('Sogeti')
+              }
+            },{
+              text: 'Cancel',
+              role: 'cancel',
+              handler: () => {
+                console.log('Cancel clicked');
+              }
+            }
+          ]
+        })
+        .present();
     }
 
     public delete() {
         console.log('delete!');
     }
 
-    public startRecording() {
+    public startRecording(client: string) {
         this.recording = true;
         this.hour = {
             start: moment(),
-            client: 'Rabobank'
+            client
         };
         this.time = moment('2015-01-01')
             .startOf('day')

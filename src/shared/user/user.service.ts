@@ -12,23 +12,10 @@ export class UserService {
     }
 
     get user(): User {
-      // Check if user data is present in the service
-      if(!this._user) {
-        // If not in the service get it from storage
-        this.storage.get('user')
-          .then(user => {
-            // Set user if data was present in local storage
-            if (user) this.user = user;
-            // If no user data is loaded get it from firebase
-            if (!user) this.user = this.parseFirebaseUser(firebase.auth().currentUser);
-          })
-          .catch(error => {
-            console.log('error getting user', error)
-          });
-      } else {
-        console.log('user not logged in');
-      }
-      return this._user;
+      const user: firebase.User = firebase.auth().currentUser;
+
+      if (user) return this.parseFirebaseUser(user);
+      return;
     }
 
     set user(user: User) {
@@ -37,9 +24,8 @@ export class UserService {
           this._user = user;
 
           // Store on device
-          this.storage.remove('user');
           this.storage.set('user', user)
-            .then(() => console.log('succesfully written data'))
+            .then(() => console.log('succesfully written userdata to local storage'))
             .catch(error => console.log('error writing data', error));
 
           // Write to storage

@@ -6,11 +6,9 @@
     <ion-icon name="trash"></ion-icon>
   </button>
 </ion-fab>
-<ion-header>
-  <ion-item>
-    <ion-input id="search" type="text" name="search" placeholder="Search ..." [(ngModel)]="searchInput"></ion-input>
-  </ion-item>
-</ion-header>
+<ion-toolbar color="primary">
+  <ion-searchbar id="search" type="text" name="search" placeholder="Search ..." [(ngModel)]="searchInput"></ion-searchbar>
+</ion-toolbar>
 <div #map id="map"></div>
 <ion-footer *ngIf="marker">
   <ion-toolbar>

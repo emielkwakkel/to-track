@@ -72,7 +72,7 @@ export class SharedLocation implements AfterViewInit {
 
     private initAutocomplete() {
       // Get input element
-      let input = document.querySelector('ion-input#search input.text-input');
+      let input = document.querySelector('ion-searchbar#search input.searchbar-input');
 
       // Use Google maps places library to add autocomplete
       this.autocomplete = new google.maps.places.Autocomplete(input);

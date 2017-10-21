@@ -1,7 +1,6 @@
 import { NgModule } from "@angular/core";
 import { HoursPage } from "./hours";
 import { IonicPageModule } from "ionic-angular";
-import { CompanyPageModule } from '../company/company.module';
 import { CompanyService } from '../company/company.service';
 import { HoursService } from "./hours.service";
 

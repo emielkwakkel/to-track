@@ -38,4 +38,10 @@
 			</button>
     </ion-list>
 	</ion-card>
+  <ion-card *ngIf="!isMobileWeb">
+		<ion-item>
+	    <h2>{{ appName }}</h2>
+      <p>Version: {{ appVersionNumber }}</p>
+	  </ion-item>
+	</ion-card>
 </ion-content>

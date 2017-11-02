@@ -36,6 +36,14 @@ export class HoursPage implements OnDestroy {
           })
     }
 
+    editHour(hour) {
+      console.log('edit hour', hour);
+    }
+
+    deleteHour(hour) {
+      console.log('delete hour', hour);
+    }
+
     selectCompany() {
       if (!this.companies) {
           console.log('No companies yet');

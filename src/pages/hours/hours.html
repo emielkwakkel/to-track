@@ -28,11 +28,11 @@
         <p ion-button clear item-end>{{hour.client}} - {{hour.duration}}</p>
       </ion-item>
       <ion-item-options side="right">
-        <button ion-button (click)="editHour(company)" color="primary">
+        <button ion-button (click)="editHour(hour)" color="primary">
           <ion-icon name="create"></ion-icon>
           Edit
         </button>
-        <button ion-button expandable (click)="deleteHour(company)" color="danger">
+        <button ion-button expandable (click)="deleteHour(hour)" color="danger">
           <ion-icon name="trash"></ion-icon>
           Delete
         </button>

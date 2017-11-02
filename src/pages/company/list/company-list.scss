@@ -1,4 +1,10 @@
 page-company-list {
+  ion-spinner {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    margin: -14px 0 0 -14px;
+  }
   ion-avatar {
     ion-icon {
       font-size: 30px;

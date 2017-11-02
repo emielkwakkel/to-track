@@ -17,6 +17,7 @@ export class CompanyListPage implements OnInit, OnDestroy {
     @ViewChild(List) list : List;
     companies: Company[];
     subscription: Subscription;
+    loading: boolean;
 
     constructor(
         public navCtrl: NavController,
@@ -24,8 +25,10 @@ export class CompanyListPage implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
+      this.loading = true;
       this.subscription = this.CompanyService.companies
         .subscribe(companies => {
+          this.loading = false;
           this.companies = companies;
         })
     }

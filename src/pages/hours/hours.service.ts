@@ -1,5 +1,5 @@
 import * as moment from 'moment';
-import { Hours } from './hours.model';
+import { Hour } from './hour.model';
 
 export class HoursService {
     private _hours: Hours[];

@@ -4,7 +4,7 @@ import { IonicPage, NavController, ActionSheetController } from "ionic-angular";
 import { Subscription } from 'rxjs/Subscription';
 
 import { HoursService } from "./hours.service";
-import { Hours } from "./hours.model";
+import { Hour } from "./hour.model";
 import { CompanyService } from '../company/company.service';
 import { Company } from '../company/company.model';
 
@@ -17,8 +17,8 @@ import { Company } from '../company/company.model';
 })
 export class HoursPage implements OnDestroy {
     recording: boolean = false;
-    hour: Hours;
-    hours: Hours[];
+    hour: Hour;
+    hours: Hour[];
     time: any;
     timer: any;
     companies: Company[];

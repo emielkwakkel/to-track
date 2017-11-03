@@ -1,4 +1,4 @@
-export class Hours {
+export class Hour {
   constructor(
     public client: string,
     public start: any,

@@ -1,39 +1,34 @@
+import { Injectable } from '@angular/core';
 import * as moment from 'moment';
 import { Hour } from './hour.model';
+import { AngularFireDatabase } from 'angularfire2/database';
+import * as firebase from 'firebase/app';
+import { Observable } from 'rxjs/Observable';
 
+@Injectable()
 export class HoursService {
-    private _hours: Hours[];
-    constructor() {
-        this._hours = [
-            {
-                start: '2017-08-03 08:00:00',
-                end: '2017-08-03 12:00:00',
-                client: 'Rabobank',
-                duration: 240
-            },
-            {
-                start: '2017-08-03 12:30:00',
-                end: '2017-08-03 17:00:00',
-                client: 'Rabobank',
-                duration: 280
-            },
-            {
-                start: '2017-08-04 08:00:00',
-                end: '2017-08-03 12:00:00',
-                client: 'Rabobank',
-                duration: 240
-            },
-            {
-                start: '2017-08-04 12:30:00',
-                end: '2017-08-03 17:00:00',
-                client: 'Rabobank',
-                duration: 280
-            }
-        ]
+    private uid: string;
+
+    constructor(private _database: AngularFireDatabase) {
+        this.uid = firebase.auth().currentUser.uid;
     }
 
-    get hours(): Hours[] {
-        return this._hours;
+    get hours(): Observable<Hour[]>{
+      return this._database
+        .list<Hour[]>(`hours/${this.uid}`)
+        .valueChanges();
+    }
+
+    public addHour(hour: Hour) {
+      return this._database
+        .object(`hours/${this.uid}/${hour.start}`)
+        .set(hour);
+    }
+
+    public deleteHour(hour: Hour) {
+      return this._database
+        .object(`hours/${this.uid}/${hour.start}`)
+        .remove();
     }
 
     public getDuration(start: moment.Moment, end: moment.Moment) {

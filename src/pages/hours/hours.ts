@@ -22,15 +22,22 @@ export class HoursPage implements OnDestroy {
     time: any;
     timer: any;
     companies: Company[];
-    subscription: Subscription;
+    subscriptionCompanies: Subscription;
+    subscriptionHours: Subscription;
 
     constructor(
       public navCtrl: NavController,
       private HoursService: HoursService,
       private CompanyService: CompanyService,
       public actionSheetCtrl: ActionSheetController) {
-        this.hours = this.HoursService.hours;
-        this.subscription = this.CompanyService.companies
+        // Get Hours
+        this.subscriptionHours = this.HoursService.hours
+          .subscribe(hours => {
+            this.hours = hours;
+          })
+
+        // Get Companies
+        this.subscriptionCompanies = this.CompanyService.companies
           .subscribe(companies => {
             this.companies = companies;
           })
@@ -42,6 +49,7 @@ export class HoursPage implements OnDestroy {
 
     deleteHour(hour) {
       console.log('delete hour', hour);
+      this.HoursService.deleteHour(hour);
     }
 
     selectCompany() {
@@ -95,7 +103,7 @@ export class HoursPage implements OnDestroy {
     public startRecording(client: string) {
         this.recording = true;
         this.hour = {
-            start: moment(),
+            start: moment().format('YYYY-MM-DD hh:mm:ss'),
             client
         };
         this.time = moment('2015-01-01')
@@ -115,14 +123,27 @@ export class HoursPage implements OnDestroy {
 
     public stopRecording() {
         clearInterval(this.timer);
+        // Reset time & recording
         this.time = null;
         this.recording = false;
-        this.hour.end = moment();
-        this.hour.duration = this.HoursService.getDuration(this.hour.start, this.hour.end);
+
+        // Determine time recording has stopped
+        this.hour.end = moment().format('YYYY-MM-DD hh:mm:ss');
+
+        // Calculate duration
+        this.hour.duration = this.HoursService.getDuration(
+          moment(this.hour.start),
+          moment(this.hour.end)
+        );
         console.log(this.hour)
+        // Save hour to database
+        this.HoursService.addHour(this.hour)
+          .then(() => console.log('success'))
+          .catch(error => console.log(error));
     }
 
     ngOnDestroy() {
-      this.subscription.unsubscribe();
+      this.subscriptionCompanies.unsubscribe();
+      this.subscriptionHours.unsubscribe();
     }
 }

@@ -12,6 +12,13 @@ export class GeofenceService {
       );
   }
 
+  /**
+  * Add geofence for iOS and Android.
+  * @param id string Unique identifier
+  * @param latitude number latitude
+  * @param longitude number longitude
+  * @param radius number Number of meters
+  */
   public addGeofence(id: string, latitude: number, longitude: number, radius: number, name: string) {
     //options describing geofence
     let fence = {

@@ -33,7 +33,7 @@ export class HoursPage implements OnDestroy {
         // Get Hours
         this.subscriptionHours = this.HoursService.hours
           .subscribe(hours => {
-            this.hours = hours;
+            this.hours = this.extendHours(hours);
           })
 
         // Get Companies
@@ -41,6 +41,20 @@ export class HoursPage implements OnDestroy {
           .subscribe(companies => {
             this.companies = companies;
           })
+    }
+
+    extendHours(hours) {
+      hours.forEach(hour => {
+        hour.title = moment(hour.start).startOf('second').fromNow();
+        hour.duration = moment('2015-01-01')
+          .startOf('day')
+          .seconds(hour.duration)
+          .format('H:mm:ss');
+        hour.start = moment(hour.start).calendar();
+        hour.end = moment(hour.end).format('hh:mm')
+      })
+      console.log(hours);
+      return hours;
     }
 
     editHour(hour) {

@@ -21,11 +21,11 @@
       *ngFor="let hour of hours">
       <ion-item>
         <ion-avatar item-start>
-          <ion-icon name="create"></ion-icon>
+          <ion-icon name="stopwatch"></ion-icon>
         </ion-avatar>
-        <h2>{{hour.start}}</h2>
+        <h2>{{hour.client}} - {{hour.title}}</h2>
         <h3>{{hour.start}} - {{hour.end}}</h3>
-        <p ion-button clear item-end>{{hour.client}} - {{hour.duration}}</p>
+        <p ion-button clear item-end>{{hour.duration}}</p>
       </ion-item>
       <ion-item-options side="right">
         <button ion-button (click)="editHour(hour)" color="primary">

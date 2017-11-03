@@ -15,10 +15,13 @@
       *ngFor="let company of companies"
       (ionSwipe)="deleteCompany(company)">
       <ion-item>
-        <ion-avatar item-start>
+        <ion-avatar item-start id="ion-avatar-start">
           <ion-icon name="home"></ion-icon>
         </ion-avatar>
         <h2>{{ company.name }}</h2>
+        <ion-avatar item-end *ngIf="company.locationEnabled" id="ion-avatar-end">
+          <ion-icon name="navigate"></ion-icon>
+        </ion-avatar>
       </ion-item>
       <ion-item-options side="right">
         <button ion-button (click)="editCompany(company)" color="primary">

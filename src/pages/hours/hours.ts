@@ -24,21 +24,27 @@ export class HoursPage implements OnDestroy {
     companies: Company[];
     subscriptionCompanies: Subscription;
     subscriptionHours: Subscription;
+    loadingCompanies: boolean;
+    loadingHours: boolean;
 
     constructor(
       public navCtrl: NavController,
       private HoursService: HoursService,
       private CompanyService: CompanyService,
       public actionSheetCtrl: ActionSheetController) {
+        this.loadingHours = true;
+        this.loadingCompanies = true;
         // Get Hours
         this.subscriptionHours = this.HoursService.hours
           .subscribe(hours => {
+            this.loadingHours = false;
             this.hours = this.extendHours(hours);
           })
 
         // Get Companies
         this.subscriptionCompanies = this.CompanyService.companies
           .subscribe(companies => {
+            this.loadingCompanies = false;
             this.companies = companies;
           })
     }

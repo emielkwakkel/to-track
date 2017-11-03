@@ -15,6 +15,7 @@
 </ion-header>
 
 <ion-content class="outer-content">
+  <ion-spinner *ngIf="loadingHours" class="center"></ion-spinner>
   <ion-list>
     <ion-item-sliding
       (ionSwipe)="deleteHour(item)"
@@ -42,15 +43,19 @@
 
   <ion-footer>
     <ion-toolbar>
-      <button ion-button disabled block large icon-left *ngIf="!recording && !companies">
+      <button ion-button disabled block large icon-left color="light" *ngIf="loadingCompanies">
+        <ion-spinner class="spinnerButton"></ion-spinner>
+        Loading companies
+      </button>
+      <button ion-button disabled block large icon-left *ngIf="!recording && !companies && !loadingCompanies">
         <ion-icon name="clock"></ion-icon>
         Add company to record
       </button>
-      <button ion-button block large icon-left (click)="selectCompany()" *ngIf="!recording && companies">
+      <button ion-button block large icon-left (click)="selectCompany()" *ngIf="!recording && companies && !loadingCompanies">
         <ion-icon name="clock"></ion-icon>
         Record
       </button>
-      <button ion-button block large icon-left (click)="stopRecording()" *ngIf="recording" color="danger">
+      <button ion-button block large icon-left (click)="stopRecording()" *ngIf="recording && !loadingCompanies" color="danger">
         <ion-icon name="clock"></ion-icon>
         Stop recording
       </button>

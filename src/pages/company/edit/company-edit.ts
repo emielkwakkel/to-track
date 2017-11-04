@@ -18,8 +18,8 @@ export class CompanyEditPage {
     this.companyBackup = this.company;
   }
 
-  toLocation(location) {
-    this.navCtrl.push('LocationPage', { location })
+  toLocation(company) {
+    this.navCtrl.push('CompanyLocationPage', { company })
   }
 
   deleteCompany(company) {

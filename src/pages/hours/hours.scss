@@ -1,5 +1,19 @@
 page-hours {
+  ion-spinner.center {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    margin: -14px 0 0 -14px;
+  }
+
+  ion-spinner.spinnerButton {
+    margin-right: 20px;
+  }
+
   ion-avatar {
+    display:flex;
+    align-items: center;
+    margin: inherit auto;
     ion-icon {
       font-size: 30px;
       color: color($colors, primary)

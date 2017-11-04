@@ -52,12 +52,11 @@ export class HoursPage implements OnDestroy {
     extendHours(hours) {
       hours.forEach(hour => {
         hour.title = moment(hour.start).startOf('second').fromNow();
-        hour.duration = moment('2015-01-01')
-          .startOf('day')
-          .seconds(hour.duration)
-          .format('H:mm:ss');
-        hour.start = moment(hour.start).calendar();
-        hour.end = moment(hour.end).format('hh:mm')
+        hour.durationFormatted = moment
+          .duration(hour.duration, 'seconds')
+          .humanize();
+        hour.startFormatted = moment(hour.start).calendar();
+        hour.endFormatted = moment(hour.end).format('H:mm A')
       })
       console.log(hours);
       return hours;

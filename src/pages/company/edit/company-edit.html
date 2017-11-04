@@ -25,9 +25,14 @@
         (click)="toLocation(company.location)"
         *ngIf="company.locationEnabled">
         <ion-icon name="navigate" item-start color="primary"></ion-icon>
-        <ion-label>Location</ion-label>
-        <ion-note item-end *ngIf="company.location">{{ company.location.address }}</ion-note>
-        <ion-note item-end *ngIf="!company.location">Set location</ion-note>
+        <ion-label *ngIf="company.location">{{ company.location.address }}</ion-label>
+        <ion-note *ngIf="!company.location">Set location</ion-note>
+      </button>
+      <button ion-item block large outline detail-none
+        (click)="deleteLocation()"
+        *ngIf="company.locationEnabled && company.location">
+        <ion-icon name="trash" item-start color="danger"></ion-icon>
+        <ion-label>Delete location</ion-label>
       </button>
     </ion-item-group>
   </ion-list>

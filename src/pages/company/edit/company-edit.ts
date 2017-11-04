@@ -9,6 +9,7 @@ import {CompanyService} from '../company.service';
   templateUrl: './company-edit.html'
 })
 export class CompanyEditPage {
+  action: string;
   company: Company;
   companyBackup: Company;
 
@@ -21,12 +22,23 @@ export class CompanyEditPage {
     this.navCtrl.push('LocationPage', { location })
   }
 
-  addCompany(company) {
-    console.log('adding', company);
-  }
-
   deleteCompany(company) {
+    this.action = 'delete';
     this.CompanyService.deleteCompany(company);
     this.navCtrl.push('CompanyListPage');
+  }
+
+  deleteLocation() {
+    delete(this.company.location);
+  }
+
+  ionViewWillLeave() {
+    console.log('will leave', this.company, this.action);
+    if(this.action !== 'delete') {
+      return this.CompanyService.updateCompany(this.company)
+        .then(() => console.log('success'))
+        .catch(error => console.log('error updating company data', error));
+    }
+    return;
   }
 }

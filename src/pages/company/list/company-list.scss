@@ -8,7 +8,7 @@ page-company-list {
   ion-avatar#ion-avatar-start {
     display:flex;
     align-items: center;
-    margin: 0 auto;
+    margin: inherit auto;
     ion-icon {
       font-size: 30px;
       color: color($colors, primary)

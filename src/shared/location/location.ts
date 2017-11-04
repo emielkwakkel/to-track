@@ -40,6 +40,13 @@ export class SharedLocation implements AfterViewInit {
             this.location.long
           )
         } else {
+          this.location = {
+            address: '',
+            lat: '0',
+            long: '0',
+            radius: 100
+          };
+
           this.geolocation
               .getCurrentPosition()
               .then(position => this.loadMap(position.coords.latitude, position.coords.longitude))

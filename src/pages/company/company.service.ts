@@ -17,13 +17,18 @@ export class CompanyService {
       return this._database
         .list<Company[]>(`company/${this.uid}`)
         .valueChanges();
-
     }
 
     addCompany(company: Company) {
       return this._database
         .object(`company/${this.uid}/${company.name}`)
         .set(company);
+    }
+
+    updateCompany(company: Company) {
+      return this._database
+        .object(`company/${this.uid}/${company.name}`)
+        .update(company);
     }
 
     deleteCompany(company: Company) {

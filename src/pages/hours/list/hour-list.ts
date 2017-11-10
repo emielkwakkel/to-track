@@ -120,7 +120,7 @@ export class HourListPage implements OnDestroy {
     public startRecording(company: string) {
         this.recording = true;
         this.hour = {
-            start: moment().format('YYYY-MM-DD hh:mm:ss'),
+            start: moment().format('YYYY-MM-DDTHH:mm:ss'),
             company
         };
         this.time = moment('2015-01-01')
@@ -145,7 +145,7 @@ export class HourListPage implements OnDestroy {
         this.recording = false;
 
         // Determine time recording has stopped
-        this.hour.end = moment().format('YYYY-MM-DD hh:mm:ss');
+        this.hour.end = moment().format('YYYY-MM-DDTHH:mm:ss');
 
         // Calculate duration
         this.hour.duration = this.HourService.getDuration(

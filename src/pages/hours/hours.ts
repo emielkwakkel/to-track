@@ -52,7 +52,7 @@ export class HoursPage implements OnDestroy {
     extendHours(hours, companies) {
       hours.forEach(hour => {
         const company = companies.find(company => company.key === hour.company);
-        hour.name = company.name;
+        hour.name = company ?  company.name : '-deleted-';
         hour.title = moment(hour.start).startOf('second').fromNow();
         hour.durationFormatted = moment
           .duration(hour.duration, 'seconds')
@@ -161,6 +161,5 @@ export class HoursPage implements OnDestroy {
 
     ngOnDestroy() {
       this.subscriptions.unsubscribe();
-
     }
 }

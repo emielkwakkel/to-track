@@ -1,9 +1,9 @@
 import { Component, OnDestroy } from "@angular/core";
-import * as moment from 'moment';
 import { IonicPage, NavController, ActionSheetController } from "ionic-angular";
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
 import "rxjs/add/observable/combineLatest";
+import * as moment from 'moment';
 
 import { HourService } from "../hour.service";
 import { Hour } from "../hour.model";
@@ -58,7 +58,7 @@ export class HourListPage implements OnDestroy {
           .duration(hour.duration, 'seconds')
           .humanize();
         hour.startFormatted = moment(hour.start).calendar();
-        hour.endFormatted = moment(hour.end).format('H:mm A')
+        hour.endFormatted = moment(hour.end).format('hh:mm A')
       });
 
       return hours;

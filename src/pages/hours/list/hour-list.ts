@@ -24,6 +24,7 @@ export class HourListPage implements OnDestroy {
     time: any;
     timer: any;
     companies: Company[];
+    companyName: string;
     subscriptions: Subscription;
     loading: boolean;
 
@@ -51,8 +52,7 @@ export class HourListPage implements OnDestroy {
 
     extendHours(hours, companies) {
       hours.forEach(hour => {
-        const company = companies.find(company => company.key === hour.company);
-        hour.name = company ?  company.name : '-deleted-';
+        hour.name = this.getCompanyName(hour.company, companies);
         hour.title = moment(hour.start).startOf('second').fromNow();
         hour.durationFormatted = moment
           .duration(hour.duration, 'seconds')
@@ -64,27 +64,33 @@ export class HourListPage implements OnDestroy {
       return hours;
     }
 
-    editHour(hour) {
-      console.log('edit hour', hour);
+    getCompanyName(companyKey: string, companies: Company[]) {
+      const company = companies.find(company => company.key === companyKey);
+      return company ?  company.name : '-deleted-';
+    }
+
+    public editHour(hour) {
+        this.navCtrl.push('HourEditPage', { hour });
     }
 
     deleteHour(hour) {
-      console.log('delete hour', hour);
       this.HourService.deleteHour(hour);
     }
 
     selectCompany() {
+      // No companies yet
       if (!this.companies) {
-          console.log('No companies yet');
           return;
       }
 
+      // Single company > directly start rercording
       if (this.companies.length === 1) {
           console.log('single company');
           this.startRecording(this.companies[0].key);
           return;
       }
 
+      // Multiple companies > select company first
       if (this.companies.length > 1) {
           console.log('multiple')
           this.showActionSheet(this.companies);
@@ -123,6 +129,7 @@ export class HourListPage implements OnDestroy {
             start: moment().format('YYYY-MM-DDTHH:mm:ss'),
             company
         };
+        this.companyName =  this.getCompanyName(company, this.companies);
         this.time = moment('2015-01-01')
             .startOf('day')
             .seconds(0)

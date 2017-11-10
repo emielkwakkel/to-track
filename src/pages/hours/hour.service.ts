@@ -26,6 +26,13 @@ export class HourService {
         .set(hour);
     }
 
+    updateHour(hour: Hour) {
+      console.log('update', hour);
+      return this._database
+        .object(`hours/${this.uid}/${hour.key}`)
+        .update(hour);
+    }
+
     public deleteHour(hour: Hour) {
       return this._database
         .object(`hours/${this.uid}/${hour.key}`)

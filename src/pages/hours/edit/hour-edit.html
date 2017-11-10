@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Edit hour</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content class="outer-content">
+  <ion-list>
+    <ion-list-header>Hour {{hour.start}}</ion-list-header>
+    <ion-item-group>
+      <ion-item>
+        <ion-icon name="home" item-start color="primary"></ion-icon>
+        <ion-label>Company</ion-label>
+        <ion-select [(ngModel)]="hour.company">
+          <ion-option
+            [value]="company.key"
+            *ngFor="let company of companies">{{company.name}}</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label>Start</ion-label>
+        <ion-datetime displayFormat="MMM DD, YYYY HH:mm" [(ngModel)]="hour.start"></ion-datetime>
+      </ion-item>
+      <ion-item>
+        <ion-label>End</ion-label>
+        <ion-datetime displayFormat="MMM DD, YYYY HH:mm" [(ngModel)]="hour.end"></ion-datetime>
+      </ion-item>
+    </ion-item-group>
+  </ion-list>
+  <ion-footer>
+    <ion-toolbar>
+      <button ion-button block large icon-left (click)="deleteHour(hour)" color="danger">
+        <ion-icon name="trash"></ion-icon>
+        Delete
+      </button>
+    </ion-toolbar>
+  </ion-footer>
+</ion-content>

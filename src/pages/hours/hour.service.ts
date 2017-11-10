@@ -6,7 +6,7 @@ import * as firebase from 'firebase/app';
 import { Observable } from 'rxjs/Observable';
 
 @Injectable()
-export class HoursService {
+export class HourService {
     private uid: string;
 
     constructor(private _database: AngularFireDatabase) {

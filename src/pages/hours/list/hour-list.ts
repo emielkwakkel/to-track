@@ -5,19 +5,19 @@ import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
 import "rxjs/add/observable/combineLatest";
 
-import { HoursService } from "./hours.service";
-import { Hour } from "./hour.model";
-import { CompanyService } from '../company/company.service';
-import { Company } from '../company/company.model';
+import { HourService } from "../hour.service";
+import { Hour } from "../hour.model";
+import { CompanyService } from '../../company/company.service';
+import { Company } from '../../company/company.model';
 
 @IonicPage({
     priority: 'high'
 })
 @Component({
-    selector: 'page-hours',
-    templateUrl: 'hours.html'
+    selector: 'page-hour-list',
+    templateUrl: 'hour-list.html'
 })
-export class HoursPage implements OnDestroy {
+export class HourListPage implements OnDestroy {
     recording: boolean = false;
     hour: Hour;
     hours: Hour[];
@@ -29,7 +29,7 @@ export class HoursPage implements OnDestroy {
 
     constructor(
       public navCtrl: NavController,
-      private HoursService: HoursService,
+      private HourService: HourService,
       private CompanyService: CompanyService,
       public actionSheetCtrl: ActionSheetController) {
         this.loading = true;
@@ -38,7 +38,7 @@ export class HoursPage implements OnDestroy {
         this.subscriptions = Observable
           // When any observable emits a value, emit the latest value from each
           .combineLatest(
-            this.HoursService.hours,
+            this.HourService.hours,
             this.CompanyService.companies
           )
           .subscribe(([hours, companies]) => {
@@ -70,7 +70,7 @@ export class HoursPage implements OnDestroy {
 
     deleteHour(hour) {
       console.log('delete hour', hour);
-      this.HoursService.deleteHour(hour);
+      this.HourService.deleteHour(hour);
     }
 
     selectCompany() {
@@ -129,7 +129,7 @@ export class HoursPage implements OnDestroy {
             .format('H:mm:ss');
 
         this.timer = setInterval(() => {
-            const duration = this.HoursService.getDuration(this.hour.start, moment());
+            const duration = this.HourService.getDuration(this.hour.start, moment());
 
             this.time = moment('2015-01-01')
                 .startOf('day')
@@ -148,13 +148,13 @@ export class HoursPage implements OnDestroy {
         this.hour.end = moment().format('YYYY-MM-DD hh:mm:ss');
 
         // Calculate duration
-        this.hour.duration = this.HoursService.getDuration(
+        this.hour.duration = this.HourService.getDuration(
           moment(this.hour.start),
           moment(this.hour.end)
         );
         console.log(this.hour)
         // Save hour to database
-        this.HoursService.addHour(this.hour)
+        this.HourService.addHour(this.hour)
           .then(() => console.log('success'))
           .catch(error => console.log(error));
     }

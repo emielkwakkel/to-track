@@ -131,7 +131,7 @@ export class HourListPage implements OnDestroy {
         };
         this.companyName =  this.getCompanyName(company, this.companies);
         this.time = moment('2015-01-01')
-            .startOf('day')
+            .startOf('second')
             .seconds(0)
             .format('H:mm:ss');
 
@@ -139,7 +139,7 @@ export class HourListPage implements OnDestroy {
             const duration = this.HourService.getDuration(this.hour.start, moment());
 
             this.time = moment('2015-01-01')
-                .startOf('day')
+                .startOf('second')
                 .seconds(duration)
                 .format('H:mm:ss');
         }, 1000)

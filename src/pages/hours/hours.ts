@@ -3,7 +3,7 @@ import * as moment from 'moment';
 import { IonicPage, NavController, ActionSheetController } from "ionic-angular";
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
-import "rxjs/add/observable/zip";
+import "rxjs/add/observable/combineLatest";
 
 import { HoursService } from "./hours.service";
 import { Hour } from "./hour.model";
@@ -36,7 +36,8 @@ export class HoursPage implements OnDestroy {
 
         // Subscribe to both hours and companies
         this.subscriptions = Observable
-          .zip(
+          // When any observable emits a value, emit the latest value from each
+          .combineLatest(
             this.HoursService.hours,
             this.CompanyService.companies
           )
@@ -58,8 +59,8 @@ export class HoursPage implements OnDestroy {
           .humanize();
         hour.startFormatted = moment(hour.start).calendar();
         hour.endFormatted = moment(hour.end).format('H:mm A')
-      })
-      console.log(hours);
+      });
+
       return hours;
     }
 
@@ -114,10 +115,6 @@ export class HoursPage implements OnDestroy {
           buttons
         })
         .present();
-    }
-
-    public delete() {
-        console.log('delete!');
     }
 
     public startRecording(company: string) {

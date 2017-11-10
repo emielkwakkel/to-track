@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Subscription } from 'rxjs/Subscription';
+import * as moment from 'moment';
 
 import { Hour } from '../hour.model';
 import { HourService } from '../hour.service';
@@ -46,6 +47,11 @@ export class HourEditPage implements OnInit, OnDestroy {
 
   ionViewWillLeave() {
     if(this.action !== 'delete') {
+      // Calculate duration
+      this.hour.duration = this.HourService.getDuration(
+        moment(this.hour.start),
+        moment(this.hour.end)
+      );
       console.log('save', this.hour);
 
       return this.HourService.updateHour({

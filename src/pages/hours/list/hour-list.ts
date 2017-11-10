@@ -85,16 +85,12 @@ export class HourListPage implements OnDestroy {
 
       // Single company > directly start rercording
       if (this.companies.length === 1) {
-          console.log('single company');
-          this.startRecording(this.companies[0].key);
-          return;
+          return this.startRecording(this.companies[0].key);
       }
 
       // Multiple companies > select company first
       if (this.companies.length > 1) {
-          console.log('multiple')
-          this.showActionSheet(this.companies);
-          return;
+          return this.showActionSheet(this.companies);
       }
     }
 

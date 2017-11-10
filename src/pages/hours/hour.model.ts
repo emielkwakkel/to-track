@@ -1,8 +1,13 @@
 export class Hour {
   constructor(
-    public client: string,
+    public company: string,
     public start: any,
     public duration?: any,
-    public end?: any
+    public durationFormatted?: string,
+    public end?: any,
+    public endFormatted?: string,
+    public key?: string,
+    public startFormatted?: string,
+    public title?: string
   ){}
 }

@@ -20,20 +20,23 @@ export class CompanyService {
     }
 
     addCompany(company: Company) {
+      company.key = firebase.database().ref().push().key;
+
       return this._database
-        .object(`company/${this.uid}/${company.name}`)
+        .object(`company/${this.uid}/${company.key}`)
         .set(company);
     }
 
     updateCompany(company: Company) {
+      console.log('update', company);
       return this._database
-        .object(`company/${this.uid}/${company.name}`)
+        .object(`company/${this.uid}/${company.key}`)
         .update(company);
     }
 
     deleteCompany(company: Company) {
       return this._database
-        .object(`company/${this.uid}/${company.name}`)
+        .object(`company/${this.uid}/${company.key}`)
         .remove();
     }
 }

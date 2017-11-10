@@ -20,14 +20,15 @@ export class HoursService {
     }
 
     public addHour(hour: Hour) {
+      hour.key = firebase.database().ref().push().key;
       return this._database
-        .object(`hours/${this.uid}/${hour.start}`)
+        .object(`hours/${this.uid}/${hour.key}`)
         .set(hour);
     }
 
     public deleteHour(hour: Hour) {
       return this._database
-        .object(`hours/${this.uid}/${hour.start}`)
+        .object(`hours/${this.uid}/${hour.key}`)
         .remove();
     }
 

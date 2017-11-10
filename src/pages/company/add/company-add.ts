@@ -27,6 +27,7 @@ export class CompanyAddPage {
     // this.slides.lockSwipeToNext(true);
     this.slideIndex = 1;
     this.company = {
+      key: '',
       name: '',
       locationEnabled: false,
       location: {

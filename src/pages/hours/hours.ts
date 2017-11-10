@@ -2,6 +2,8 @@ import { Component, OnDestroy } from "@angular/core";
 import * as moment from 'moment';
 import { IonicPage, NavController, ActionSheetController } from "ionic-angular";
 import { Subscription } from 'rxjs/Subscription';
+import { Observable } from 'rxjs/Observable';
+import "rxjs/add/observable/zip";
 
 import { HoursService } from "./hours.service";
 import { Hour } from "./hour.model";
@@ -22,35 +24,34 @@ export class HoursPage implements OnDestroy {
     time: any;
     timer: any;
     companies: Company[];
-    subscriptionCompanies: Subscription;
-    subscriptionHours: Subscription;
-    loadingCompanies: boolean;
-    loadingHours: boolean;
+    subscriptions: Subscription;
+    loading: boolean;
 
     constructor(
       public navCtrl: NavController,
       private HoursService: HoursService,
       private CompanyService: CompanyService,
       public actionSheetCtrl: ActionSheetController) {
-        this.loadingHours = true;
-        this.loadingCompanies = true;
-        // Get Hours
-        this.subscriptionHours = this.HoursService.hours
-          .subscribe(hours => {
-            this.loadingHours = false;
-            this.hours = this.extendHours(hours);
-          })
+        this.loading = true;
 
-        // Get Companies
-        this.subscriptionCompanies = this.CompanyService.companies
-          .subscribe(companies => {
-            this.loadingCompanies = false;
+        // Subscribe to both hours and companies
+        this.subscriptions = Observable
+          .zip(
+            this.HoursService.hours,
+            this.CompanyService.companies
+          )
+          .subscribe(([hours, companies]) => {
+            this.loading = false;
+            this.hours = this.extendHours(hours, companies);
             this.companies = companies;
-          })
+            }
+          );
     }
 
-    extendHours(hours) {
+    extendHours(hours, companies) {
       hours.forEach(hour => {
+        const company = companies.find(company => company.key === hour.company);
+        hour.name = company.name;
         hour.title = moment(hour.start).startOf('second').fromNow();
         hour.durationFormatted = moment
           .duration(hour.duration, 'seconds')
@@ -79,7 +80,7 @@ export class HoursPage implements OnDestroy {
 
       if (this.companies.length === 1) {
           console.log('single company');
-          this.startRecording(this.companies[0].name);
+          this.startRecording(this.companies[0].key);
           return;
       }
 
@@ -102,7 +103,7 @@ export class HoursPage implements OnDestroy {
           text: company.name,
           role: '',
           handler: () => {
-            this.startRecording(company.name)
+            this.startRecording(company.key)
           }
         });
       });
@@ -119,11 +120,11 @@ export class HoursPage implements OnDestroy {
         console.log('delete!');
     }
 
-    public startRecording(client: string) {
+    public startRecording(company: string) {
         this.recording = true;
         this.hour = {
             start: moment().format('YYYY-MM-DD hh:mm:ss'),
-            client
+            company
         };
         this.time = moment('2015-01-01')
             .startOf('day')
@@ -162,7 +163,7 @@ export class HoursPage implements OnDestroy {
     }
 
     ngOnDestroy() {
-      this.subscriptionCompanies.unsubscribe();
-      this.subscriptionHours.unsubscribe();
+      this.subscriptions.unsubscribe();
+
     }
 }

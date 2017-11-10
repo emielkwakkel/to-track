@@ -5,7 +5,7 @@
 </ion-header>
 <ion-content class="outer-content">
   <ion-list>
-    <ion-list-header>Hour {{hour.start}}</ion-list-header>
+    <ion-list-header>Hour</ion-list-header>
     <ion-item-group>
       <ion-item>
         <ion-icon name="home" item-start color="primary"></ion-icon>
@@ -17,10 +17,12 @@
         </ion-select>
       </ion-item>
       <ion-item>
+        <ion-icon name="arrow-dropright-circle" item-start color="primary"></ion-icon>
         <ion-label>Start</ion-label>
         <ion-datetime displayFormat="MMM DD, YYYY HH:mm" [(ngModel)]="hour.start"></ion-datetime>
       </ion-item>
       <ion-item>
+        <ion-icon name="close-circle" item-start color="primary"></ion-icon>
         <ion-label>End</ion-label>
         <ion-datetime displayFormat="MMM DD, YYYY HH:mm" [(ngModel)]="hour.end"></ion-datetime>
       </ion-item>

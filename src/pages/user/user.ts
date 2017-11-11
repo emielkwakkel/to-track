@@ -4,9 +4,9 @@ import { Storage } from '@ionic/storage';
 import { AppVersion } from '@ionic-native/app-version';
 import { Platform } from 'ionic-angular';
 
-import { AuthenticationService } from '../shared/user/authentication.service';
-import { UserService } from '../shared/user/user.service';
-import { User } from '../shared/user/user.model';
+import { AuthenticationService } from '../../shared/user/authentication.service';
+import { UserService } from '../../shared/user/user.service';
+import { User } from '../../shared/user/user.model';
 
 
 @IonicPage()

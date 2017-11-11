@@ -20,6 +20,7 @@ export class UserPage implements OnInit {
     isMobileWeb: boolean;
     isIOS: boolean;
     isAndroid: boolean;
+    isCordova: boolean;
     appName: string;
     appVersionNumber: string;
 
@@ -36,11 +37,12 @@ export class UserPage implements OnInit {
       this.user = this.userService.user;
       this.driver = this.storage.driver;
       this.isMobileWeb = this.platform.is('mobileweb');
+      this.isCordova = this.platform.is('cordova');
       this.isIOS = this.platform.is('ios');
       this.isAndroid = this.platform.is('android');
 
       // Getting version number is only supported on native iOS and Android.
-      if (!this.isMobileWeb && this.isIOS || this.isAndroid) {
+      if (this.isCordova && !this.isMobileWeb && (this.isIOS || this.isAndroid)) {
         this.appVersion
           .getVersionNumber()
           .then(version => this.appVersionNumber = version);

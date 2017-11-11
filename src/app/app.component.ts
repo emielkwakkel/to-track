@@ -1,18 +1,21 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, OnDestroy } from '@angular/core';
 import { Platform, NavController, LoadingController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { AngularFireAuth } from 'angularfire2/auth';
+import { Subscription } from 'rxjs/Subscription';
 import * as firebase from 'firebase/app';
 import { AuthenticationService } from '../shared/user/authentication.service';
+import { Geofence } from '@ionic-native/geofence';
 
 @Component({
     templateUrl: 'app.html'
 })
-export class MyApp {
+export class MyApp implements OnDestroy {
     @ViewChild('myNav') nav : NavController;
     rootPage: any = 'LoginPage';
     public user: firebase.User;
+    private subscription: Subscription;
     public loading: any;
 
     constructor(
@@ -21,7 +24,9 @@ export class MyApp {
       public splashScreen: SplashScreen,
       private afAuth: AngularFireAuth,
       private authenticationService: AuthenticationService,
-      public loadingCtrl: LoadingController) {
+      public loadingCtrl: LoadingController,
+      public geofence: Geofence
+    ) {
         this.loading = loadingCtrl.create({
           content: 'Logging in...'
         });
@@ -40,6 +45,20 @@ export class MyApp {
 
       this.afAuth.authState
         .subscribe((user: firebase.User) => this.onUserChange(user));
+
+      // Initialize Geofences
+      this.geofence.initialize()
+        .then(() => this.subscribeGeofenceTransitions())
+        .catch(err => console.log('error', err));
+    }
+
+    private subscribeGeofenceTransitions() {
+      this.subscription = this.geofence.onTransitionReceived()
+        .subscribe(geofences => {
+          geofences.forEach(geofence => {
+              console.log('Geofence transition detected', geofence);
+          });
+        });
     }
 
     onUserChange(user: firebase.User) {
@@ -59,5 +78,9 @@ export class MyApp {
         // On success  navigate to the login page.
         this.nav.push('LoginPage');
       }
+    }
+
+    ngOnDestroy() {
+      this.subscription.unsubscribe();
     }
 }

@@ -13,6 +13,7 @@ import { firebaseConfig } from '../firebase.config';
 // Providers
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { Geofence } from '@ionic-native/geofence';
 import { AuthenticationService } from '../shared/user/authentication.service';
 import { UserService } from "../shared/user/user.service";
 
@@ -39,7 +40,8 @@ import { UserService } from "../shared/user/user.service";
         SplashScreen,
         { provide: ErrorHandler, useClass: IonicErrorHandler },
         AuthenticationService,
-        UserService
+        UserService,
+        Geofence
     ]
 })
 export class AppModule {

@@ -16,7 +16,8 @@ export class HourService {
     get hours(): Observable<Hour[]>{
       return this._database
         .list<Hour[]>(`hours/${this.uid}`)
-        .valueChanges();
+        .valueChanges()
+        .map((arr) => { return arr.reverse(); } );
     }
 
     public addHour(hour: Hour) {
@@ -26,7 +27,7 @@ export class HourService {
         .set(hour);
     }
 
-    updateHour(hour: Hour) {
+    public updateHour(hour: Hour) {
       console.log('update', hour);
       return this._database
         .object(`hours/${this.uid}/${hour.key}`)

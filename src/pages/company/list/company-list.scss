@@ -5,7 +5,7 @@ page-company-list {
     top: 50%;
     margin: -14px 0 0 -14px;
   }
-  ion-avatar#ion-avatar-start {
+  ion-avatar.ion-avatar-start {
     display:flex;
     align-items: center;
     margin: inherit auto;
@@ -14,7 +14,7 @@ page-company-list {
       color: color($colors, primary)
     }
   }
-  ion-avatar#ion-avatar-end {
+  ion-avatar.ion-avatar-end {
     display:flex;
     align-items: center;
     margin-left: auto;

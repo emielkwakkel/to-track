@@ -10,13 +10,23 @@ page-hour-list {
     margin-right: 20px;
   }
 
-  ion-avatar {
+  ion-avatar.ion-avatar-start {
     display:flex;
     align-items: center;
     margin: inherit auto;
     ion-icon {
       font-size: 30px;
       color: color($colors, primary)
+    }
+  }
+  ion-avatar.ion-avatar-end {
+    display:flex;
+    align-items: center;
+    margin-left: auto;
+    justify-content: flex-end;
+    ion-icon {
+      font-size: 20px;
+      color: #888;
     }
   }
 }

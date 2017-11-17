@@ -21,12 +21,16 @@
       (ionSwipe)="deleteHour(item)"
       *ngFor="let hour of hours">
       <ion-item>
-        <ion-avatar item-start>
+        <ion-avatar item-start class="ion-avatar-start">
           <ion-icon name="stopwatch"></ion-icon>
         </ion-avatar>
         <h2>{{hour.name}} <small>- {{hour.title}}</small></h2>
         <p>{{hour.startFormatted}} - {{hour.endFormatted}}</p>
         <p ion-button clear item-end>{{hour.durationFormatted}}</p>
+        <p clear item-end *ngIf="hour.durationFormatted">{{hour.durationFormatted}}</p>
+        <ion-avatar item-end *ngIf="!hour.durationFormatted" class="ion-avatar-end">
+          <ion-icon name="clock"></ion-icon>
+        </ion-avatar>
       </ion-item>
       <ion-item-options side="right">
         <button ion-button (click)="editHour(hour)" color="primary">

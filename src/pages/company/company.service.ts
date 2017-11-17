@@ -31,7 +31,7 @@ export class CompanyService {
       console.log('update', company);
       return this._database
         .object(`company/${this.uid}/${company.key}`)
-        .update(company);
+        .set(company);
     }
 
     deleteCompany(company: Company) {

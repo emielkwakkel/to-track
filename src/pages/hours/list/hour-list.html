@@ -44,25 +44,25 @@
       </ion-item-options>
     </ion-item-sliding>
   </ion-list>
-
-  <ion-footer>
-    <ion-toolbar>
-      <button ion-button disabled block large icon-left color="light" *ngIf="loading">
-        <ion-spinner class="spinnerButton"></ion-spinner>
-        Loading companies
-      </button>
-      <button ion-button disabled block large icon-left *ngIf="!recording && !companies && !loading">
-        <ion-icon name="clock"></ion-icon>
-        Add company to record
-      </button>
-      <button ion-button block large icon-left (click)="selectCompany()" *ngIf="!recording && companies && !loading">
-        <ion-icon name="clock"></ion-icon>
-        Record
-      </button>
-      <button ion-button block large icon-left (click)="stopRecording()" *ngIf="recording && !loading" color="danger">
-        <ion-icon name="clock"></ion-icon>
-        Stop recording
-      </button>
-    </ion-toolbar>
-  </ion-footer>
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <button ion-button disabled block large icon-left color="light" *ngIf="loading">
+      <ion-spinner class="spinnerButton"></ion-spinner>
+      Loading companies
+    </button>
+    <button ion-button disabled block large icon-left *ngIf="!recording && !companies && !loading">
+      <ion-icon name="clock"></ion-icon>
+      Add company to record
+    </button>
+    <button ion-button block large icon-left (click)="selectCompany()" *ngIf="!recording && companies && !loading">
+      <ion-icon name="clock"></ion-icon>
+      Record
+    </button>
+    <button ion-button block large icon-left (click)="stopRecording()" *ngIf="recording && !loading" color="danger">
+      <ion-icon name="clock"></ion-icon>
+      Stop recording
+    </button>
+  </ion-toolbar>
+</ion-footer>

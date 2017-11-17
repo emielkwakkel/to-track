@@ -24,9 +24,8 @@
         <ion-avatar item-start class="ion-avatar-start">
           <ion-icon name="stopwatch"></ion-icon>
         </ion-avatar>
-        <h2>{{hour.name}} <small>- {{hour.title}}</small></h2>
-        <p>{{hour.startFormatted}} - {{hour.endFormatted}}</p>
-        <p ion-button clear item-end>{{hour.durationFormatted}}</p>
+        <h2>{{hour.companyName}} <small *ngIf="hour.timeAgo">- {{hour.timeAgo}}</small></h2>
+        <p>{{hour.startFormatted}}<span *ngIf="hour.endFormatted"> - {{hour.endFormatted}}</span></p>
         <p clear item-end *ngIf="hour.durationFormatted">{{hour.durationFormatted}}</p>
         <ion-avatar item-end *ngIf="!hour.durationFormatted" class="ion-avatar-end">
           <ion-icon name="clock"></ion-icon>

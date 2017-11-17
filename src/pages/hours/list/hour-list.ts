@@ -1,12 +1,12 @@
-import { Component, OnDestroy } from "@angular/core";
-import { IonicPage, NavController, ActionSheetController } from "ionic-angular";
+import { Component, OnDestroy } from '@angular/core';
+import { IonicPage, NavController, ActionSheetController } from 'ionic-angular';
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
-import "rxjs/add/observable/combineLatest";
+import 'rxjs/add/observable/combineLatest';
 import * as moment from 'moment';
 
-import { HourService } from "../hour.service";
-import { Hour } from "../hour.model";
+import { HourService } from '../hour.service';
+import { Hour } from '../hour.model';
 import { CompanyService } from '../../company/company.service';
 import { Company } from '../../company/company.model';
 
@@ -22,17 +22,17 @@ export class HourListPage implements OnDestroy {
     hour: Hour;
     hours: Hour[];
     time: any;
-    timer: any;
+    timerInterval: any;
     companies: Company[];
     companyName: string;
     subscriptions: Subscription;
     loading: boolean;
 
     constructor(
-      public navCtrl: NavController,
+      private navCtrl: NavController,
       private HourService: HourService,
       private CompanyService: CompanyService,
-      public actionSheetCtrl: ActionSheetController) {
+      private actionSheetCtrl: ActionSheetController) {
         this.loading = true;
 
         // Subscribe to both hours and companies
@@ -44,21 +44,29 @@ export class HourListPage implements OnDestroy {
           )
           .subscribe(([hours, companies]) => {
             this.loading = false;
-            this.hours = this.extendHours(hours, companies);
             this.companies = companies;
+            this.hours = this.extendHours(hours, companies);
             }
           );
     }
 
     extendHours(hours, companies) {
       hours.forEach(hour => {
-        hour.name = this.getCompanyName(hour.company, companies);
-        hour.title = moment(hour.start).startOf('second').fromNow();
-        hour.durationFormatted = moment
-          .duration(hour.duration, 'seconds')
-          .humanize();
+        hour.companyName = this.getCompanyName(hour.company, companies);
+        hour.timeAgo = hour.end ? moment(hour.start).startOf('second').fromNow() : null;
+        hour.durationFormatted = hour.duration
+          ? moment('2015-01-01')
+              .startOf('second')
+              .seconds(hour.duration)
+              .format('H:mm:ss')
+          : null;
         hour.startFormatted = moment(hour.start).calendar();
-        hour.endFormatted = moment(hour.end).format('hh:mm A')
+        hour.endFormatted = hour.end ? moment(hour.end).format('hh:mm A') : null;
+
+        // Check if timer is still running
+        if (!hour.end) {
+          this.startRecording(hour.company, hour.start, hour.key);
+        }
       });
 
       return hours;
@@ -77,21 +85,15 @@ export class HourListPage implements OnDestroy {
       this.HourService.deleteHour(hour);
     }
 
-    selectCompany() {
+    public selectCompany() {
       // No companies yet
-      if (!this.companies) {
-          return;
-      }
+      if (!this.companies) return null;
 
       // Single company > directly start rercording
-      if (this.companies.length === 1) {
-          return this.startRecording(this.companies[0].key);
-      }
+      if (this.companies.length === 1) return this.startRecording(this.companies[0].key);
 
       // Multiple companies > select company first
-      if (this.companies.length > 1) {
-          return this.showActionSheet(this.companies);
-      }
+      if (this.companies.length > 1) return this.showActionSheet(this.companies);
     }
 
     private showActionSheet(companies) {
@@ -119,30 +121,45 @@ export class HourListPage implements OnDestroy {
         .present();
     }
 
-    public startRecording(company: string) {
+    private startRecording(company: string, start?: moment.Moment, key?: string) {
+        // start is defined if open recording starts again.
         this.recording = true;
         this.hour = {
-            start: moment().format('YYYY-MM-DDTHH:mm:ss'),
-            company
+            start: start ? start : moment().format('YYYY-MM-DDTHH:mm:ss'),
+            company,
+            key
         };
-        this.companyName =  this.getCompanyName(company, this.companies);
-        this.time = moment('2015-01-01')
-            .startOf('second')
-            .seconds(0)
-            .format('H:mm:ss');
+        this.startTimer(
+          this.hour.company,
+          this.hour.start
+        );
 
-        this.timer = setInterval(() => {
-            const duration = this.HourService.getDuration(this.hour.start, moment());
+        if (!start) {
+          this.HourService.addHour(this.hour)
+            .then(success => console.log('success',success))
+            .catch(error => console.log('error', error));
+        }
+    }
 
-            this.time = moment('2015-01-01')
-                .startOf('second')
-                .seconds(duration)
-                .format('H:mm:ss');
-        }, 1000)
+    private startTimer(company: string, start: moment.Moment) {
+      this.companyName =  this.getCompanyName(company, this.companies);
+      this.time = moment('2015-01-01')
+          .startOf('second')
+          .seconds(0)
+          .format('H:mm:ss');
+
+      this.timerInterval = setInterval(() => {
+          const duration = this.HourService.getDuration(start, moment());
+
+          this.time = moment('2015-01-01')
+              .startOf('second')
+              .seconds(duration)
+              .format('H:mm:ss');
+      }, 1000)
     }
 
     public stopRecording() {
-        clearInterval(this.timer);
+        clearInterval(this.timerInterval);
         // Reset time & recording
         this.time = null;
         this.recording = false;
@@ -155,10 +172,10 @@ export class HourListPage implements OnDestroy {
           moment(this.hour.start),
           moment(this.hour.end)
         );
-        console.log(this.hour)
-        // Save hour to database
-        this.HourService.addHour(this.hour)
-          .then(() => console.log('success'))
+
+        // Update hour
+        this.HourService.updateHour(this.hour)
+          .then(() => console.log('saved', this.hour))
           .catch(error => console.log(error));
     }
 

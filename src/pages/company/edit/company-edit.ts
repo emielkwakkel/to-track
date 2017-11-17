@@ -30,6 +30,7 @@ export class CompanyEditPage {
 
   deleteLocation() {
     delete(this.company.location);
+    this.company.locationEnabled = false;
   }
 
   ionViewWillLeave() {

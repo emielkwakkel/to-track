@@ -13,13 +13,13 @@ export class CompanyService {
       this.uid = firebase.auth().currentUser.uid;
     }
 
-    get companies(): Observable<Company[]>{
+    public get companies(): Observable<Company[]>{
       return this._database
         .list<Company[]>(`company/${this.uid}`)
         .valueChanges();
     }
 
-    addCompany(company: Company) {
+    public addCompany(company: Company) {
       company.key = firebase.database().ref().push().key;
 
       return this._database
@@ -27,14 +27,14 @@ export class CompanyService {
         .set(company);
     }
 
-    updateCompany(company: Company) {
+    public updateCompany(company: Company) {
       console.log('update', company);
       return this._database
         .object(`company/${this.uid}/${company.key}`)
         .set(company);
     }
 
-    deleteCompany(company: Company) {
+    public deleteCompany(company: Company) {
       return this._database
         .object(`company/${this.uid}/${company.key}`)
         .remove();

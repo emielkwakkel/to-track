@@ -15,7 +15,7 @@ export class CompanyLocationPage {
       this.company = this.navParams.get('company');
     }
 
-    locationChanged(event: Location) {
+    public locationChanged(event: Location) {
       // Set new location
       this.company.location = event;
     }

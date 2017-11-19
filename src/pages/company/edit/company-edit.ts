@@ -18,17 +18,17 @@ export class CompanyEditPage {
     this.companyBackup = this.company;
   }
 
-  toLocation(company) {
+  public toLocation(company) {
     this.navCtrl.push('CompanyLocationPage', { company })
   }
 
-  deleteCompany(company) {
+  public deleteCompany(company) {
     this.action = 'delete';
     this.CompanyService.deleteCompany(company);
     this.navCtrl.push('CompanyListPage');
   }
 
-  deleteLocation() {
+  public deleteLocation() {
     delete(this.company.location);
     this.company.locationEnabled = false;
   }

@@ -29,7 +29,7 @@ export class HourListPage implements OnDestroy {
     loading: boolean;
 
     constructor(
-      private navCtrl: NavController,
+      public navCtrl: NavController,
       private HourService: HourService,
       private CompanyService: CompanyService,
       private actionSheetCtrl: ActionSheetController) {
@@ -50,7 +50,7 @@ export class HourListPage implements OnDestroy {
           );
     }
 
-    extendHours(hours, companies) {
+    private extendHours(hours, companies) {
       hours.forEach(hour => {
         hour.companyName = this.getCompanyName(hour.company, companies);
         hour.timeAgo = hour.end ? moment(hour.start).startOf('second').fromNow() : null;
@@ -72,7 +72,7 @@ export class HourListPage implements OnDestroy {
       return hours;
     }
 
-    getCompanyName(companyKey: string, companies: Company[]) {
+    private getCompanyName(companyKey: string, companies: Company[]) {
       const company = companies.find(company => company.key === companyKey);
       return company ?  company.name : '-deleted-';
     }
@@ -81,7 +81,7 @@ export class HourListPage implements OnDestroy {
         this.navCtrl.push('HourEditPage', { hour });
     }
 
-    deleteHour(hour) {
+    public deleteHour(hour) {
       this.HourService.deleteHour(hour);
     }
 

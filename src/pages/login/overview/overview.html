@@ -1,0 +1,35 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Login
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <ion-card>
+    <img src="assets/city-map.jpg" style="max-width:250px;margin: 0 auto;">
+    <ion-card-content>
+      <ion-card-title>
+        To Track
+      </ion-card-title>
+      <p>Using To Track you are able to easily track hours based on location.</p>
+      <p>You are able to signup via email, or connect a Google account.</p>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
+<ion-footer>
+  <ion-toolbar>
+    <button ion-button block large icon-left (click)="loginEmail()">
+      <ion-icon name="email"></ion-icon>
+      Login
+    </button>
+      <button ion-button block large icon-left (click)="createAccount()">
+        <ion-icon name="google"></ion-icon>
+        Create account
+      </button>
+    <button ion-button block large icon-left (click)="loginGoogle()">
+      <ion-icon name="google"></ion-icon>
+      Login via Google
+    </button>
+  </ion-toolbar>
+</ion-footer>

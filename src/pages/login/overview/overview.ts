@@ -3,27 +3,31 @@ import { IonicPage, NavController } from "ionic-angular";
 import { Observable } from 'rxjs/Observable';
 import * as firebase from 'firebase/app';
 
-import { AuthenticationService } from '../../shared/user/authentication.service';
+import { AuthenticationService } from '../../../shared/user/authentication.service';
 
 @IonicPage({
     priority: 'high'
 })
 @Component({
-    selector: 'page-login',
-    templateUrl: 'login.html'
+    selector: 'page-overview',
+    templateUrl: 'overview.html'
 })
-export class LoginPage {
+export class OverviewPage {
     user: Observable<firebase.User>;
     constructor(
       public navCtrl: NavController,
       private authenticationService: AuthenticationService) {
     }
 
-    loginGoogle() {
-        this.authenticationService.loginGoogle();
+    createAccount() {
+        this.navCtrl.push('CreatePage');
     }
 
-    logout() {
-        this.authenticationService.logout();
+    loginEmail() {
+        this.navCtrl.push('LoginPage');
+    }
+
+    loginGoogle() {
+        this.authenticationService.loginGoogle();
     }
 }

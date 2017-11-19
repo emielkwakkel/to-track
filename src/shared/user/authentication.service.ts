@@ -10,9 +10,9 @@ export class AuthenticationService {
     loading: any;
 
     constructor(
-        public afAuth: AngularFireAuth,
-        public toastCtrl: ToastController,
-        public userService: UserService,
+        private afAuth: AngularFireAuth,
+        private toastCtrl: ToastController,
+        private userService: UserService,
         public loadingCtrl: LoadingController) {
           this.loading = loadingCtrl.create({
             content: 'Logging in...'
@@ -23,6 +23,16 @@ export class AuthenticationService {
         const provider = new firebase.auth.GoogleAuthProvider();
         this.loading.present();
         return this.afAuth.auth.signInWithRedirect(provider);
+    }
+
+    public loginEmail(email: string, password: string) {
+      console.log('email', email, 'password', password);
+      return firebase.auth().signInWithEmailAndPassword(email, password)
+    }
+
+    public createAccount(email: string, password: string) {
+      console.log('email', email, 'password', password);
+      return firebase.auth().createUserWithEmailAndPassword(email, password);
     }
 
     public getRedirectResult() {
@@ -49,7 +59,6 @@ export class AuthenticationService {
         this.loading.dismiss();
         this.presentToast(error.message, 3000);
     }
-
 
     private presentToast(message: string, duration: number) {
         let toast = this.toastCtrl.create({

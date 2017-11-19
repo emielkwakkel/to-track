@@ -19,7 +19,7 @@ export class MyApp implements OnDestroy {
     public loading: any;
 
     constructor(
-      platform: Platform,
+      public platform: Platform,
       public statusBar: StatusBar,
       public splashScreen: SplashScreen,
       private afAuth: AngularFireAuth,
@@ -73,10 +73,10 @@ export class MyApp implements OnDestroy {
         this.nav.push('TabsPage');
 
       } else {
-        this.nav.setRoot('LoginPage');
+        this.nav.setRoot('OverviewPage');
 
         // On success  navigate to the login page.
-        this.nav.push('LoginPage');
+        this.nav.push('OverviewPage');
       }
     }
 

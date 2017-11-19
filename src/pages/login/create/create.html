@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Create account
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+  <ion-content class="outer-content">
+    <form [formGroup]="user" (ngSubmit)="createAccount()">
+      <ion-list>
+        <ion-list-header>Account details</ion-list-header>
+        <ion-item-group>
+          <ion-item>
+            <ion-icon name="mail" item-start color="primary"></ion-icon>
+            <ion-label fixed>Email</ion-label>
+            <ion-input type="text" formControlName="email"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-icon name="key" item-start color="primary"></ion-icon>
+            <ion-label fixed>Password</ion-label>
+            <ion-input type="password" formControlName="password"></ion-input>
+          </ion-item>
+          <ion-item>
+            <button type="submit" ion-button block large icon-left [disabled]="!user.valid" (click)="createAccount(user)">
+              <ion-icon name="add-circle"></ion-icon>
+              Create account
+            </button>
+          </ion-item>
+        </ion-item-group>
+      </ion-list>
+    </form>
+  </ion-content>

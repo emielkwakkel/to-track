@@ -36,7 +36,11 @@
           <ion-icon name="create"></ion-icon>
           Edit
         </button>
-        <button ion-button expandable (click)="deleteHour(hour)" color="danger">
+        <button ion-button expandable (click)="stopRecording()"  *ngIf="recording" color="danger">
+          <ion-icon name="clock"></ion-icon>
+          Stop
+        </button>
+        <button ion-button expandable (click)="deleteHour(hour)" *ngIf="!recording" color="danger">
           <ion-icon name="trash"></ion-icon>
           Delete
         </button>

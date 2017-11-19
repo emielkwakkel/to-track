@@ -18,7 +18,7 @@
   <ion-spinner *ngIf="loading" class="center"></ion-spinner>
   <ion-list>
     <ion-item-sliding
-      (ionSwipe)="deleteHour(item)"
+      (ionSwipe)="deleteHour(hour)"
       *ngFor="let hour of hours">
       <ion-item>
         <ion-avatar item-start class="ion-avatar-start">

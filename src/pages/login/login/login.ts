@@ -17,8 +17,14 @@ export class LoginPage {
     private toastCtrl: ToastController,
     private formBuilder: FormBuilder) {
       this.login = this.formBuilder.group({
-        email: ['', Validators.required],
-        password: ['', Validators.required],
+        email: ['', [
+          Validators.required,
+          Validators.email
+        ]],
+        password: ['', [
+          Validators.required,
+          Validators.minLength(8)
+        ]],
       });
   }
 

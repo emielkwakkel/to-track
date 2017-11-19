@@ -21,6 +21,15 @@
             <ion-input type="password" formControlName="password"></ion-input>
           </ion-item>
           <ion-item>
+            <h2>Password rules</h2>
+            <ul>
+              <li><p>At least one uppercase and lowercase letter</p></li>
+              <li><p>At least one digit</p></li>
+              <li><p>At least one special character</p></li>
+              <li><p>Minimum eight in length</p></li>
+            </ul>
+          </ion-item>
+          <ion-item>
             <button type="submit" ion-button block large icon-left [disabled]="!user.valid" (click)="createAccount(user)">
               <ion-icon name="add-circle"></ion-icon>
               Create account

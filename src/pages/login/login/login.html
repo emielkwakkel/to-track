@@ -13,7 +13,7 @@
           <ion-item>
             <ion-icon name="mail" item-start color="primary"></ion-icon>
             <ion-label fixed>Email</ion-label>
-            <ion-input type="text" formControlName="email"></ion-input>
+            <ion-input type="email" formControlName="email"></ion-input>
           </ion-item>
           <ion-item>
             <ion-icon name="key" item-start color="primary"></ion-icon>
@@ -21,9 +21,9 @@
             <ion-input type="password" formControlName="password"></ion-input>
           </ion-item>
           <ion-item>
-            <button type="submit" ion-button block large icon-left [disabled]="!login.valid">
-              <ion-icon name="add-circle"></ion-icon>
+            <button type="submit" ion-button block large icon-right [disabled]="!login.valid">
               Login
+              <ion-icon name="arrow-forward"></ion-icon>
             </button>
           </ion-item>
         </ion-item-group>

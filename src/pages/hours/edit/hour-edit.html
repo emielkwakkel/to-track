@@ -10,7 +10,7 @@
       <ion-item>
         <ion-icon name="home" item-start color="primary"></ion-icon>
         <ion-label>Company</ion-label>
-        <ion-select [(ngModel)]="hour.company">
+        <ion-select [(ngModel)]="hour.company" interface="action-sheet">
           <ion-option
             [value]="company.key"
             *ngFor="let company of companies">{{company.name}}</ion-option>

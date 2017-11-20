@@ -6,35 +6,26 @@
 
 <ion-content class="outer-content">
   <ion-card>
-		<ion-item>
-	    <ion-avatar item-start *ngIf="user.photoURL">
+    <ion-item>
+      <ion-icon [name]="providerIcon" item-start color="dark"></ion-icon>
+	    <h2 *ngIf="user.displayName">{{ user.displayName }}</h2>
+	    <h2 *ngIf="!user.displayName">{{ user.email }}</h2>
+	    <p *ngIf="user.displayName">{{ user.email }}</p>
+      <ion-avatar item-end *ngIf="user.photoURL">
 	      <img [src]="user.photoURL" [alt]="user.displayName">
 	    </ion-avatar>
-	    <h2>{{ user.displayName }}</h2>
-	    <p>{{ user.email }}</p>
-	  </ion-item>
-		<ion-card-content>
-			<p>You have connected using {{ user.providerId }}.<br></p>
-		</ion-card-content>
+    </ion-item>
+    <ion-card-content>
+      <p>You are currently logged in. Use below buttons if you would like to log out or erase all data.</p>
+    </ion-card-content>
     <ion-list>
       <button ion-item block (click)="logout()">
 				<ion-icon name="log-out" item-start></ion-icon>
 				Logout
 			</button>
-    </ion-list>
-	</ion-card>
-  <ion-card>
-		<ion-item>
-	    <h2>Local data</h2>
-      <p>Driver: {{ driver }}</p>
-	  </ion-item>
-		<ion-card-content>
-			<p>Data is both stored online and locally on your device. To logout and clear local data click below.</p>
-		</ion-card-content>
-    <ion-list>
-      <button ion-item block (click)="logout()">
+      <button ion-item block (click)="deleteUser()">
 				<ion-icon name="trash" item-start></ion-icon>
-				Clear local data and logout
+				Delete User
 			</button>
     </ion-list>
 	</ion-card>

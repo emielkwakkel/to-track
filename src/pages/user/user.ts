@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, ModalController } from 'ionic-angular';
-import { Storage } from '@ionic/storage';
 import { AppVersion } from '@ionic-native/app-version';
 import { Platform } from 'ionic-angular';
+import * as firebase from 'firebase/app';
 
 import { AuthenticationService } from '../../shared/user/authentication.service';
 import { UserService } from '../../shared/user/user.service';
@@ -17,13 +17,13 @@ import { PolicyTOCPage } from '../policy/toc/toc';
 })
 export class UserPage implements OnInit {
     user: User;
-    driver: string = null;
     isMobileWeb: boolean;
     isIOS: boolean;
     isAndroid: boolean;
     isCordova: boolean;
     appName: string;
     appVersionNumber: string;
+    providerIcon: string;
 
     constructor(
         public appVersion: AppVersion,
@@ -31,13 +31,12 @@ export class UserPage implements OnInit {
         public modalCtrl: ModalController,
         private authenticationService: AuthenticationService,
         private userService: UserService,
-        private storage: Storage,
         private platform: Platform) {
     }
 
     ngOnInit() {
       this.user = this.userService.user;
-      this.driver = this.storage.driver;
+      this.providerIcon = this.getProviderIcon(this.user.providerId);
       this.isMobileWeb = this.platform.is('mobileweb');
       this.isCordova = this.platform.is('cordova');
       this.isIOS = this.platform.is('ios');
@@ -54,6 +53,27 @@ export class UserPage implements OnInit {
       }
     }
 
+    private getProviderIcon(providerId) {
+      switch (providerId) {
+        case 'password': return 'mail'
+        case 'facebook': return 'logo-facebook'
+        case 'github': return 'logo-github'
+        case 'google.com': return 'logo-google'
+      }
+    }
+
+    public deleteUser() {
+      console.log(firebase.auth().currentUser);
+      firebase.auth()
+        .currentUser
+        .delete()
+        .then(() => {
+          console.log('success');
+        })
+        .catch(function(error) {
+          console.log('error', error);
+        });
+    }
 
     public gotoPolicyPrivacy() {
       return this.modalCtrl

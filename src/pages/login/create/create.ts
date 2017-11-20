@@ -4,6 +4,7 @@ import { IonicPage, NavController, ToastController, ModalController } from 'ioni
 
 import { AuthenticationService } from '../../../shared/user/authentication.service';
 import { PolicyPrivacyPage } from '../../policy/privacy/privacy';
+import { PolicyTOCPage } from '../../policy/toc/toc';
 
 @IonicPage()
 @Component({
@@ -40,9 +41,15 @@ export class CreatePage {
       });
   }
 
-  public gotoPrivacyPolicy() {
+  public gotoPolicyPrivacy() {
     return this.modalCtrl
       .create(PolicyPrivacyPage)
+      .present();
+  }
+
+  public gotoPolicyTOC() {
+    return this.modalCtrl
+      .create(PolicyTOCPage)
       .present();
   }
 

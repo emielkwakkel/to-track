@@ -8,6 +8,7 @@ import { AuthenticationService } from '../../shared/user/authentication.service'
 import { UserService } from '../../shared/user/user.service';
 import { User } from '../../shared/user/user.model';
 import { PolicyPrivacyPage } from '../policy/privacy/privacy';
+import { PolicyTOCPage } from '../policy/toc/toc';
 
 @IonicPage()
 @Component({
@@ -54,11 +55,18 @@ export class UserPage implements OnInit {
     }
 
 
-    public gotoPrivacyPolicy() {
+    public gotoPolicyPrivacy() {
       return this.modalCtrl
         .create(PolicyPrivacyPage)
         .present();
     }
+
+    public gotoPolicyTOC() {
+      return this.modalCtrl
+        .create(PolicyTOCPage)
+        .present();
+    }
+
     public logout() {
         this.authenticationService.logout();
     }

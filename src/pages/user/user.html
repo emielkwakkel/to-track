@@ -40,15 +40,20 @@
 	</ion-card>
   <ion-card>
     <ion-item>
+      <ion-icon name="information-circle" item-start color="dark"></ion-icon>
       <h2>Policies</h2>
     </ion-item>
     <ion-card-content>
-      <p>Your privacy is important to us. For your reference see our policies below.</p>
+      <p>Your privacy is important to us. Please make sure to read both the privacy policy and terms &amp; conditions.</p>
     </ion-card-content>
     <ion-list>
-      <button ion-item block (click)="gotoPrivacyPolicy()">
-        <ion-icon name="trash" item-start></ion-icon>
+      <button ion-item block (click)="gotoPolicyPrivacy()">
+        <ion-icon name="eye" item-start></ion-icon>
         Privacy Policy
+      </button>
+      <button ion-item block (click)="gotoPolicyTOC()">
+        <ion-icon name="eye" item-start></ion-icon>
+        Terms &amp; Conditions
       </button>
     </ion-list>
   </ion-card>

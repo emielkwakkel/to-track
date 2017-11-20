@@ -27,6 +27,7 @@ export class UserPage implements OnInit {
     constructor(
         public appVersion: AppVersion,
         public navCtrl: NavController,
+        public modalCtrl: ModalController,
         private authenticationService: AuthenticationService,
         private userService: UserService,
         private storage: Storage,

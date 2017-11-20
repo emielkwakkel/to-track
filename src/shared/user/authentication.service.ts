@@ -26,12 +26,10 @@ export class AuthenticationService {
     }
 
     public loginEmail(email: string, password: string) {
-      console.log('email', email, 'password', password);
       return firebase.auth().signInWithEmailAndPassword(email, password)
     }
 
     public createAccount(email: string, password: string) {
-      console.log('email', email, 'password', password);
       return firebase.auth().createUserWithEmailAndPassword(email, password);
     }
 

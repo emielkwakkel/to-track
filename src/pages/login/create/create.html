@@ -15,19 +15,14 @@
             <ion-label fixed>Email</ion-label>
             <ion-input type="text" formControlName="email"></ion-input>
           </ion-item>
-          <ion-item>
+          <ion-item no-lines>
             <ion-icon name="key" item-start color="primary"></ion-icon>
             <ion-label fixed>Password</ion-label>
             <ion-input type="password" formControlName="password"></ion-input>
           </ion-item>
-          <ion-item>
-            <h2>Password rules</h2>
-            <ul>
-              <li><p>At least one uppercase and lowercase letter</p></li>
-              <li><p>At least one digit</p></li>
-              <li><p>At least one special character</p></li>
-              <li><p>Minimum eight in length</p></li>
-            </ul>
+          <ion-item text-wrap>
+            <ion-icon name="information" item-start color="dark"></ion-icon>
+            <p>Your password must contain at least one uppercase letter, lowercase letter, digit and special character. It must be at least eight characters.</p>
           </ion-item>
           <ion-item>
             <ion-label text-wrap>By registering an account you agree with our <a (click)="gotoPrivacyPolicy()">Privacy Policy</a>.</ion-label>

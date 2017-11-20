@@ -1,18 +1,20 @@
 import { Component } from '@angular/core';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
-import { IonicPage, NavController, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, ToastController, ModalController } from 'ionic-angular';
 
 import { AuthenticationService } from '../../../shared/user/authentication.service';
+import { PolicyPrivacyPage } from '../../policy/privacy/privacy';
 
 @IonicPage()
 @Component({
-  selector: 'create',
+  selector: 'page-create',
   templateUrl: 'create.html'
 })
 export class CreatePage {
   private user : FormGroup;
   constructor(
     public navCtrl: NavController,
+    public modalCtrl: ModalController,
     private AuthenticationService: AuthenticationService,
     private toastCtrl: ToastController,
     private formBuilder: FormBuilder) {
@@ -32,7 +34,16 @@ export class CreatePage {
           Validators.required,
           Validators.pattern(passwordRegex)
         ]],
+        terms: [false, [
+          Validators.requiredTrue
+        ]]
       });
+  }
+
+  public gotoPrivacyPolicy() {
+    return this.modalCtrl
+      .create(PolicyPrivacyPage)
+      .present();
   }
 
   createAccount() {

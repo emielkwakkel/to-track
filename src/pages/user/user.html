@@ -38,6 +38,20 @@
 			</button>
     </ion-list>
 	</ion-card>
+  <ion-card>
+    <ion-item>
+      <h2>Policies</h2>
+    </ion-item>
+    <ion-card-content>
+      <p>Your privacy is important to us. For your reference see our policies below.</p>
+    </ion-card-content>
+    <ion-list>
+      <button ion-item block (click)="gotoPrivacyPolicy()">
+        <ion-icon name="trash" item-start></ion-icon>
+        Privacy Policy
+      </button>
+    </ion-list>
+  </ion-card>
   <ion-card *ngIf="!isMobileWeb">
 		<ion-item>
 	    <h2>{{ appName }}</h2>

@@ -1,0 +1,6 @@
+page-create {
+  // Hiding the item-cover makes links in label clickable
+  .label-no-touch .item-cover {
+    display: none;
+  }
+}

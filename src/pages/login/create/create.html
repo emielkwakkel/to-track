@@ -30,6 +30,10 @@
             </ul>
           </ion-item>
           <ion-item>
+            <ion-label text-wrap>By registering an account you agree with our <a (click)="gotoPrivacyPolicy()">Privacy Policy</a>.</ion-label>
+            <ion-checkbox formControlName="terms" class="label-no-touch"></ion-checkbox>
+          </ion-item>
+          <ion-item>
             <button type="submit" ion-button block large icon-left [disabled]="!user.valid" (click)="createAccount(user)">
               <ion-icon name="add-circle"></ion-icon>
               Create account

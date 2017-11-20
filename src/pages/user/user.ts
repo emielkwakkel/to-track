@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IonicPage, NavController } from 'ionic-angular';
+import { IonicPage, NavController, ModalController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { AppVersion } from '@ionic-native/app-version';
 import { Platform } from 'ionic-angular';
@@ -7,7 +7,7 @@ import { Platform } from 'ionic-angular';
 import { AuthenticationService } from '../../shared/user/authentication.service';
 import { UserService } from '../../shared/user/user.service';
 import { User } from '../../shared/user/user.model';
-
+import { PolicyPrivacyPage } from '../policy/privacy/privacy';
 
 @IonicPage()
 @Component({
@@ -52,6 +52,12 @@ export class UserPage implements OnInit {
       }
     }
 
+
+    public gotoPrivacyPolicy() {
+      return this.modalCtrl
+        .create(PolicyPrivacyPage)
+        .present();
+    }
     public logout() {
         this.authenticationService.logout();
     }

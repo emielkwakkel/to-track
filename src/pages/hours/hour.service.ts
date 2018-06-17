@@ -15,7 +15,7 @@ export class HourService {
 
     get hours(): Observable<Hour[]>{
       return this._database
-        .list<Hour[]>(`hours/${this.uid}`)
+        .list<Hour>(`hours/${this.uid}`)
         .valueChanges()
         .map((arr) => { return arr.reverse(); } );
     }

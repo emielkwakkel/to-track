@@ -15,7 +15,7 @@ export class CompanyService {
 
     public get companies(): Observable<Company[]>{
       return this._database
-        .list<Company[]>(`company/${this.uid}`)
+        .list<Company>(`company/${this.uid}`)
         .valueChanges();
     }
 

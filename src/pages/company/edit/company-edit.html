@@ -4,38 +4,40 @@
   </ion-navbar>
 </ion-header>
 <ion-content class="outer-content">
-  <ion-list>
-    <ion-list-header>Company</ion-list-header>
-    <ion-item-group>
-      <ion-item>
-        <ion-icon name="home" item-start color="primary"></ion-icon>
-        <ion-label fixed>Company</ion-label>
-        <ion-input type="text" [(ngModel)]="company.name"></ion-input>
-      </ion-item>
-    </ion-item-group>
-    <ion-list-header>Location</ion-list-header>
-    <ion-item-group>
-      <ion-item>
-        <ion-icon name="navigate" item-start color="primary"></ion-icon>
-        <ion-label>Location enabled</ion-label>
-        <ion-toggle [(ngModel)]="company.locationEnabled"></ion-toggle>
-      </ion-item>
-      <button
-        ion-item
-        (click)="toLocation(company)"
-        *ngIf="company.locationEnabled">
-        <ion-icon name="navigate" item-start color="primary"></ion-icon>
-        <ion-label *ngIf="company.location">{{ company.location.address }}</ion-label>
-        <ion-label *ngIf="!company.location">Set location</ion-label>
-      </button>
-      <button ion-item block large outline detail-none
-        (click)="deleteLocation()"
-        *ngIf="company.locationEnabled && company.location">
-        <ion-icon name="trash" item-start color="danger"></ion-icon>
-        <ion-label>Delete location</ion-label>
-      </button>
-    </ion-item-group>
-  </ion-list>
+  <form [formGroup]="companyForm">
+    <ion-list>
+      <ion-list-header>Company</ion-list-header>
+      <ion-item-group>
+        <ion-item>
+          <ion-icon name="home" item-start color="primary"></ion-icon>
+          <ion-label fixed>Company</ion-label>
+          <ion-input type="text" formControlName="name"></ion-input>
+        </ion-item>
+      </ion-item-group>
+      <ion-list-header>Location</ion-list-header>
+      <ion-item-group>
+        <ion-item>
+          <ion-icon name="navigate" item-start color="primary"></ion-icon>
+          <ion-label>Location enabled</ion-label>
+          <ion-toggle formControlName="locationEnabled"></ion-toggle>
+        </ion-item>
+        <button
+          ion-item
+          (click)="toLocation(company)"
+          *ngIf="companyForm.controls.locationEnabled.value">
+          <ion-icon name="navigate" item-start color="primary"></ion-icon>
+          <ion-label *ngIf="company.location.address">{{ company.location.address }}</ion-label>
+          <ion-label *ngIf="!company.location.address">Set location</ion-label>
+        </button>
+        <button ion-item block large outline detail-none
+          (click)="deleteLocation()"
+          *ngIf="companyForm.controls.locationEnabled.value && company.location.address">
+          <ion-icon name="trash" item-start color="danger"></ion-icon>
+          <ion-label>Delete location</ion-label>
+        </button>
+      </ion-item-group>
+    </ion-list>
+  </form>
   <ion-footer>
     <ion-toolbar>
       <button ion-button block large icon-left (click)="deleteCompany(company)" color="danger">

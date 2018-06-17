@@ -1,7 +1,8 @@
-import {Component} from "@angular/core";
-import {IonicPage, NavController, NavParams} from "ionic-angular";
-import {Company} from '../company.model';
-import {CompanyService} from '../company.service';
+import { Component } from '@angular/core';
+import { Validators, FormBuilder, FormGroup } from '@angular/forms';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Company } from '../company.model';
+import { CompanyService } from '../company.service';
 
 @IonicPage()
 @Component({
@@ -9,16 +10,26 @@ import {CompanyService} from '../company.service';
   templateUrl: './company-edit.html'
 })
 export class CompanyEditPage {
-  action: string;
-  company: Company;
-  companyBackup: Company;
+  private action: string;
+  public company: Company;
+  private companyForm: FormGroup;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public CompanyService: CompanyService) {
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public CompanyService: CompanyService,
+    public formBuild: FormBuilder) {
     this.company = navParams.get('company');
-    this.companyBackup = this.company;
+    this.companyForm = this.formBuild.group({
+      name: [ this.company.name, [ Validators.required ]],
+      locationEnabled: [ this.company.locationEnabled ],
+      location: [ this.company.location.address ]
+    })
   }
 
   public toLocation(company) {
+    this.company.locationEnabled = true;
+    this.companyForm.patchValue({locationEnabled: true});
     this.navCtrl.push('CompanyLocationPage', { company })
   }
 
@@ -31,6 +42,7 @@ export class CompanyEditPage {
   public deleteLocation() {
     delete(this.company.location);
     this.company.locationEnabled = false;
+    this.companyForm.patchValue({locationEnabled: false});
   }
 
   ionViewWillLeave() {

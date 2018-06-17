@@ -45,22 +45,45 @@ export class HourEditPage implements OnInit, OnDestroy {
     this.navCtrl.push('HourListPage');
   }
 
-  ionViewWillLeave() {
-    if(this.action !== 'delete') {
-      // Calculate duration
-      this.hour.duration = this.HourService.getDuration(
-        moment(this.hour.start),
-        moment(this.hour.end)
-      );
-      console.log('save', this.hour);
+  substractBreak(minutes: number = 0) {
+    if (this.hour.breakMinutes >= 15) {
+      this.hour.breakMinutes = minutes - 15;
+    }
+  }
 
-      return this.HourService.updateHour({
+  addBreak(minutes: number = 0) {
+    this.hour.breakMinutes = minutes + 15;
+  }
+
+  ionViewWillLeave() {
+    if (this.action !== 'delete') {
+      const saveObject: Hour = {
         company: this.hour.company,
         start: this.hour.start,
-        end: this.hour.end,
         key: this.hour.key,
-        duration: this.hour.duration
-      })
+      }
+
+      if (this.hour.end) {
+        // Calculate duration
+        this.hour.duration = this.HourService.getDuration(
+          moment(this.hour.start),
+          moment(this.hour.end),
+          this.hour.breakMinutes * 60,
+        );
+
+        saveObject.duration = this.hour.duration;
+        saveObject.end = this.hour.end;
+      }
+
+      if (this.hour.description) {
+        saveObject.description = this.hour.description;
+      }
+
+      if (this.hour.breakMinutes || this.hour.breakMinutes === 0) {
+        saveObject.breakMinutes = this.hour.breakMinutes;
+      }
+
+      return this.HourService.updateHour(saveObject)
         .then(() => console.log('success'))
         .catch(error => console.log('error updating hour data', error));
     }

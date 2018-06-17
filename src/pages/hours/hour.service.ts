@@ -40,8 +40,8 @@ export class HourService {
         .remove();
     }
 
-    public getDuration(start: moment.Moment, end: moment.Moment) {
+    public getDuration(start: moment.Moment, end: moment.Moment, breakSeconds: number = 0) {
         const duration = moment.duration(end.diff(start));
-        return duration.asSeconds();
+        return duration.asSeconds() - breakSeconds;
     }
 }

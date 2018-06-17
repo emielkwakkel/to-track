@@ -26,7 +26,23 @@
         <ion-label>End</ion-label>
         <ion-datetime displayFormat="MMM DD, YYYY HH:mm" [(ngModel)]="hour.end"></ion-datetime>
       </ion-item>
+      <ion-item>
+        <ion-icon name="cafe" item-start color="primary"></ion-icon>
+        <ion-label>Break</ion-label>
+        <ion-input [(ngModel)]="hour.breakMinutes"></ion-input>
+      </ion-item>
+      <ion-item>
+        <button ion-button color="light" medium (click)="substractBreak(hour.breakMinutes)">- 15 min</button>
+        <button ion-button color="light" medium (click)="addBreak(hour.breakMinutes)">+ 15min</button>
+      </ion-item>
     </ion-item-group>
+      <ion-list-header>Details</ion-list-header>
+      <ion-item-group>
+        <ion-item>
+          <ion-label floating>Description</ion-label>
+          <ion-textarea [(ngModel)]="hour.description"></ion-textarea>
+        </ion-item>
+      </ion-item-group>
   </ion-list>
   <ion-footer>
     <ion-toolbar>

@@ -64,11 +64,12 @@ export class HourEditPage implements OnInit, OnDestroy {
       }
 
       if (this.hour.end) {
+        const breakSeconds = this.hour.breakMinutes ? this.hour.breakMinutes * 60 : 0;
         // Calculate duration
         this.hour.duration = this.HourService.getDuration(
           moment(this.hour.start),
           moment(this.hour.end),
-          this.hour.breakMinutes * 60,
+          breakSeconds,
         );
 
         saveObject.duration = this.hour.duration;

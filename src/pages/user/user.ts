@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { IonicPage, NavController, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, ModalController } from '@ionic/angular';
 import { AppVersion } from '@ionic-native/app-version';
-import { Platform } from 'ionic-angular';
+import { Platform } from '@ionic/angular';
 import * as firebase from 'firebase/app';
 
 import { AuthenticationService } from '../../shared/user/authentication.service';

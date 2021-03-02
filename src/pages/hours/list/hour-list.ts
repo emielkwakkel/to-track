@@ -1,6 +1,6 @@
 import { Component, OnDestroy } from '@angular/core';
-import { IonicPage, NavController, ActionSheetController } from 'ionic-angular';
-import { Subscription } from 'rxjs/Subscription';
+import { IonicPage, NavController, ActionSheetController } from '@ionic/angular';
+import { Subscription } from 'rxjs';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/combineLatest';
 import * as moment from 'moment';

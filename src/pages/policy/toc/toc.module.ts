@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
-import { IonicPageModule } from 'ionic-angular';
+import { IonicPageModule } from '@ionic/angular';
 import { PolicyTOCPage } from './toc';
 
 @NgModule({
     declarations: [PolicyTOCPage],
-    imports: [IonicPageModule.forChild(PolicyTOCPage)],
+    imports: [RouterModule.forChild(PolicyTOCPage)],
     entryComponents: [PolicyTOCPage],
     exports: [PolicyTOCPage]
 })

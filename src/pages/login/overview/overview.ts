@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { IonicPage, NavController } from "ionic-angular";
+import { IonicPage, NavController } from "@ionic/angular";
 import { Observable } from 'rxjs/Observable';
 import * as firebase from 'firebase/app';
 

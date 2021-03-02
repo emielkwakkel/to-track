@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, ViewChild } from "@angular/core";
-import { IonicPage, NavController } from "ionic-angular";
-import { Subscription } from 'rxjs/Subscription';
-import { List } from 'ionic-angular';
+import { IonicPage, NavController } from "@ionic/angular";
+import { Subscription } from 'rxjs';
+import { List } from '@ionic/angular';
 
 import { CompanyService } from '../company.service';
 import { Company } from '../company.model';

@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { Subscription } from 'rxjs/Subscription';
+import { IonicPage, NavController, NavParams } from '@ionic/angular';
+import { Subscription } from 'rxjs';
 import * as moment from 'moment';
 
 import { Hour } from '../hour.model';

@@ -1,12 +1,13 @@
 import { Component, ViewChild, OnDestroy } from '@angular/core';
-import { Platform, NavController, LoadingController } from 'ionic-angular';
+import { Platform, NavController, LoadingController } from '@ionic/angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { AngularFireAuth } from 'angularfire2/auth';
-import { Subscription } from 'rxjs/Subscription';
 import * as firebase from 'firebase/app';
 import { AuthenticationService } from '../shared/user/authentication.service';
 import { Geofence } from '@ionic-native/geofence';
+import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
     templateUrl: 'app.html'
@@ -15,13 +16,14 @@ export class MyApp implements OnDestroy {
     @ViewChild('myNav') nav : NavController;
     rootPage: any = 'LoginPage';
     public user: firebase.User;
-    private subscription: Subscription;
+    private subscription: Subscription
     public loading: any;
 
     constructor(
       public platform: Platform,
       public statusBar: StatusBar,
       public splashScreen: SplashScreen,
+      private router: Router,
       private afAuth: AngularFireAuth,
       private authenticationService: AuthenticationService,
       public loadingCtrl: LoadingController,
@@ -67,16 +69,16 @@ export class MyApp implements OnDestroy {
       if (user) {
         // Remove the login page from the nav stack.
         // Now the tabs page is the root of the application.
-        this.nav.setRoot('TabsPage');
+        this.router.navigate(['/tabs']);
 
         // On success  navigate to the tabs page.
-        this.nav.push('TabsPage');
+        this.router.navigate(['/tabs']);
 
       } else {
-        this.nav.setRoot('OverviewPage');
+        this.router.navigate(['/overview']);
 
         // On success  navigate to the login page.
-        this.nav.push('OverviewPage');
+        this.router.navigate(['/overview']);
       }
     }
 

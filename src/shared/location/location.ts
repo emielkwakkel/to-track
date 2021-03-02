@@ -1,5 +1,5 @@
 import { Component, Input, ElementRef, ViewChild, AfterViewInit, EventEmitter, Output } from '@angular/core';
-import { ToastController, LoadingController } from 'ionic-angular';
+import { ToastController, LoadingController } from '@ionic/angular';
 import { Geolocation } from '@ionic-native/geolocation';
 import { Location } from './location.model';
 

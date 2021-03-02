@@ -1,10 +1,10 @@
 import { NgModule } from "@angular/core";
 import { OverviewPage } from "./overview";
-import { IonicPageModule } from "ionic-angular";
+import { RouterModule } from '@angular/router';
 
 @NgModule({
     declarations: [OverviewPage],
-    imports: [IonicPageModule.forChild(OverviewPage)],
+    imports: [RouterModule.forChild(OverviewPage)],
     entryComponents: [OverviewPage]
 })
 export class OverviewPageModule {

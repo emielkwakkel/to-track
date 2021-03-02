@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavParams } from 'ionic-angular';
+import { IonicPage, NavParams } from '@ionic/angular';
 import { Company } from '../company.model';
 import { Location } from '../../../shared/location/location.model';
 import { CompanyService } from '../company.service';

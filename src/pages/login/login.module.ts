@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { IonicPageModule } from 'ionic-angular';
+import { IonicPageModule } from '@ionic/angular';
 import { OverviewPage } from './overview/overview';
 
 @NgModule({
     declarations: [ OverviewPage ],
     imports: [
-      IonicPageModule.forChild(OverviewPage),
+      RouterModule.forChild(OverviewPage),
       FormsModule
     ],
     entryComponents: [ OverviewPage ]

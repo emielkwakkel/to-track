@@ -1,11 +1,11 @@
 import { NgModule } from "@angular/core";
-import { IonicPageModule } from "ionic-angular";
+import { RouterModule } from '@angular/router';
 import { CompanyListPage } from "./company-list";
 import { CompanyService } from "../company.service";
 
 @NgModule({
     declarations: [CompanyListPage],
-    imports: [IonicPageModule.forChild(CompanyListPage)],
+    imports: [RouterModule.forChild(CompanyListPage)],
     entryComponents: [CompanyListPage],
     providers: [CompanyService]
 })

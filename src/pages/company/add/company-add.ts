@@ -1,5 +1,5 @@
 import { Component, ViewChild } from "@angular/core";
-import { IonicPage, NavController, NavParams, Slides } from "ionic-angular";
+import { IonicPage, NavController, NavParams, Slides } from "@ionic/angular";
 import { Company } from '../company.model';
 import { CompanyService } from '../company.service';
 import { Location } from '../../../shared/location/location.model';

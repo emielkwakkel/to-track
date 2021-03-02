@@ -1,7 +1,7 @@
 {
   "name": "hourTracker",
   "app_id": "faf9a303",
-  "type": "ionic-angular",
+  "type": "angular",
   "integrations": {
     "cordova": {}
   }
